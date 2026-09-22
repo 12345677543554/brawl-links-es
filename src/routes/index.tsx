@@ -145,8 +145,8 @@ function BrawlerChapter({ brawler, index }: { brawler: Brawler; index: number })
   const imageScale = useTransform(smooth, [0, .5, 1], [.76, 1.08, .9]);
   const glowOpacity = useTransform(smooth, [0, .5, 1], [.1, .72, .12]);
   const count = useCountUp(brawler.record, active);
-  return <section ref={ref} className="relative h-[280vh]">
-    <div className="sticky top-0 flex h-screen items-center overflow-hidden px-4 py-6 sm:px-7">
+  return <section ref={ref} className="relative py-20 md:h-[280vh] md:py-0">
+    <div className="relative flex min-h-screen items-center px-4 py-6 sm:px-7 md:sticky md:top-0 md:h-screen md:overflow-hidden">
       <Decor variant="compact" />
       <motion.div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]" style={{ background: brawler.color, opacity: glowOpacity }} />
       <div className={`mx-auto grid w-full max-w-6xl items-center gap-4 md:grid-cols-[.82fr_1.18fr] md:gap-10 ${index % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
