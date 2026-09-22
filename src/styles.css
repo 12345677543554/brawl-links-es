@@ -52,6 +52,9 @@
   --color-brand-tiktok: var(--brand-tiktok);
   --color-brand-tiktok-foreground: var(--brand-tiktok-foreground);
   --color-brand-gold: var(--brand-gold);
+  --color-brawler-colt: var(--brawler-colt);
+  --color-brawler-spike: var(--brawler-spike);
+  --color-brawler-nita: var(--brawler-nita);
 }
 
 :root {
@@ -97,6 +100,9 @@
   --brand-tiktok: oklch(0.22 0.02 270);
   --brand-tiktok-foreground: oklch(0.98 0.005 247);
   --brand-gold: oklch(0.82 0.17 84);
+  --brawler-colt: oklch(0.68 0.2 240);
+  --brawler-spike: oklch(0.73 0.2 145);
+  --brawler-nita: oklch(0.65 0.22 25);
 }
 
 @layer base {
@@ -108,6 +114,8 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background-image: radial-gradient(circle at 15% 20%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 26%), radial-gradient(circle at 85% 70%, color-mix(in oklab, var(--chart-3) 10%, transparent), transparent 28%);
+    background-attachment: fixed;
   }
 }
 
@@ -150,4 +158,75 @@
     border-radius: 0.7rem;
     flex-shrink: 0;
   }
+
+  .bg-progress {
+    background: linear-gradient(90deg, var(--brand-gold), var(--accent), var(--chart-3));
+  }
+
+  .bg-hero-overlay {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--background) 45%, transparent), color-mix(in oklab, var(--background) 82%, transparent) 68%, var(--background));
+  }
+
+  .title-game {
+    color: var(--foreground);
+    letter-spacing: 0;
+    -webkit-text-stroke: 2px var(--background);
+    text-shadow: 0 5px 0 var(--accent), 0 9px 24px color-mix(in oklab, var(--background) 70%, transparent);
+  }
+
+  .avatar-burst {
+    position: absolute;
+    inset: -2.5rem;
+    background: repeating-conic-gradient(from 0deg, color-mix(in oklab, var(--primary) 65%, transparent) 0deg 8deg, transparent 8deg 18deg);
+    animation: spin-slow 22s linear infinite;
+    mask-image: radial-gradient(circle, transparent 0 26%, #000 28% 60%, transparent 72%);
+  }
+
+  .brawl-decor { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--foreground); opacity: .13; }
+  .brawl-decor span { position: absolute; font-weight: 900; }
+  .decor-skull { left: 7%; top: 19%; font-size: 3rem; transform: rotate(-16deg); }
+  .decor-bolt { right: 9%; top: 23%; font-size: 4.5rem; transform: rotate(12deg); color: var(--primary); }
+  .decor-cross { left: 12%; bottom: 16%; font-size: 2.5rem; color: var(--accent); }
+  .decor-dot { right: 12%; bottom: 13%; width: 5rem; height: 5rem; border-radius: 50%; border: 1rem dotted currentColor; }
+  .brawl-decor--compact { opacity: .08; }
+
+  .brawler-rays {
+    position: absolute; width: min(80vw, 34rem); aspect-ratio: 1; border-radius: 50%;
+    background: repeating-conic-gradient(from 0deg, currentColor 0deg 9deg, transparent 9deg 20deg);
+    mask-image: radial-gradient(circle, #000 0 52%, transparent 73%);
+    opacity: .25; animation: spin-slow 32s linear infinite;
+  }
+
+  .rarity-badge {
+    display: inline-flex; padding: .28rem .7rem; border-radius: .3rem; border: 2px solid color-mix(in oklab, var(--primary) 70%, var(--background));
+    background: var(--primary); color: var(--primary-foreground); font-size: .66rem; font-weight: 900; text-transform: uppercase; transform: skew(-5deg);
+  }
+
+  .trophy-chip {
+    display: flex; align-items: center; gap: .55rem; padding: .45rem .7rem; border: 2px solid color-mix(in oklab, var(--primary) 60%, var(--border));
+    border-radius: .45rem; background: color-mix(in oklab, var(--card) 88%, transparent); color: var(--primary); box-shadow: 0 5px 0 color-mix(in oklab, var(--background) 75%, transparent);
+  }
+  .trophy-chip span { display: flex; flex-direction: column; }
+  .trophy-chip b { font-size: 1.15rem; line-height: 1; }
+  .trophy-chip small { margin-top: .12rem; color: var(--muted-foreground); font-size: .55rem; text-transform: uppercase; }
+
+  .ability-card {
+    display: flex; min-height: 5rem; align-items: center; gap: .7rem; padding: .65rem .75rem; border: 1px solid var(--border); border-radius: .45rem;
+    background: color-mix(in oklab, var(--card) 90%, transparent); box-shadow: inset 0 1px color-mix(in oklab, var(--foreground) 8%, transparent); backdrop-filter: blur(10px);
+  }
+  .ability-symbol { display: inline-flex; width: 2.5rem; height: 2.5rem; flex: none; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary-foreground); background: var(--primary); }
+  .ability-symbol--Súper { color: var(--accent-foreground); background: var(--accent); }
+  .ability-symbol--Hipercarga { color: var(--accent-foreground); background: linear-gradient(135deg, var(--accent), var(--chart-3)); }
+
+  .mode-tile {
+    display: flex; min-height: 7rem; flex-direction: column; align-items: center; justify-content: center; gap: .55rem; border: 2px solid var(--border); border-radius: .4rem;
+    background: var(--card); box-shadow: 0 7px 0 color-mix(in oklab, var(--background) 75%, transparent); text-align: center; color: var(--primary);
+  }
+  .mode-tile b { color: var(--foreground); font-size: .74rem; }
+}
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-burst, .brawler-rays { animation: none; }
 }
