@@ -146,7 +146,7 @@ function Index() {
         {/* Footer */}
         <footer className="mt-auto pt-10 text-center">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} GAMETUIN · Hecho con 💛
+            © {new Date().getFullYear()} GAMETUIN · Hecho con cariño
           </p>
         </footer>
       </div>
