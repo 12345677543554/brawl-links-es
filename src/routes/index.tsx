@@ -1,11 +1,12 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useRef } from "react";
 import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
-import colt from "@/assets/brawl/colt-model.png.asset.json";
-import spike from "@/assets/brawl/spike-model.png.asset.json";
-import nita from "@/assets/brawl/nita-model.png.asset.json";
+import nori from "@/assets/brawl/nori-official.png.asset.json";
+import leon from "@/assets/brawl/leon-model.png.asset.json";
+import cordelius from "@/assets/brawl/cordelius-model.png.asset.json";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -26,9 +27,9 @@ const CREATOR_STATS = [
 ];
 
 const FAVORITES = [
-  { name: "Colt", image: colt.url, color: "var(--brawler-colt)" },
-  { name: "Spike", image: spike.url, color: "var(--brawler-spike)" },
-  { name: "Nita", image: nita.url, color: "var(--brawler-nita)" },
+  { name: "Nori", image: nori.url, color: "var(--brawler-nori)", label: "01" },
+  { name: "León", image: leon.url, color: "var(--brawler-leon)", label: "02" },
+  { name: "Cordelius", image: cordelius.url, color: "var(--brawler-cordelius)", label: "03" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -61,6 +62,35 @@ function Decor() {
 
 function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return <div className="section-heading"><p className="section-kicker">{eyebrow}</p><h2>{title}</h2><p>{copy}</p></div>;
+}
+
+function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITES)[number]; index: number; progress: MotionValue<number> }) {
+  const center = index / (FAVORITES.length - 1);
+  const opacity = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [0, 1, 0]);
+  const imageY = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [90, 0, -90]);
+  const imageScale = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [.82, 1, .92]);
+
+  return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1}`} style={{ opacity }} aria-hidden={index !== 0}>
+    <div className="favorite-scene__rays" />
+    <div className="favorite-scene__copy"><span>{brawler.label} / 03</span><h4>{brawler.name}</h4><p>Brawler favorito de GAMETUIN</p></div>
+    <motion.img src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} style={{ y: imageY, scale: imageScale }} />
+  </motion.article>;
+}
+
+function ScrollFavorites() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  return <div ref={sectionRef} className="favorite-scroll">
+    <div className="favorite-scroll__sticky">
+      <div className="favorite-scroll__progress" aria-hidden="true"><motion.span style={{ scaleX: progressScale }} /></div>
+      <div className="favorite-scroll__steps" aria-label="Nori, León y Cordelius son los brawlers favoritos de GAMETUIN">
+        {FAVORITES.map((brawler, index) => <FavoriteLayer key={brawler.name} brawler={brawler} index={index} progress={scrollYProgress} />)}
+      </div>
+      <span className="favorite-scroll__hint">DESLIZA PARA DESCUBRIRLOS</span>
+    </div>
+  </div>;
 }
 
 function Index() {
@@ -120,7 +150,7 @@ function Index() {
         <div className="brawl-intro"><div><p className="section-kicker">Zona de combate</p><h2>Mi contenido de <span>Brawl Stars</span></h2><p>Partidas, consejos, retos, novedades y jugadas con mis brawlers favoritos.</p></div><div className="content-tags"><span>Gameplays</span><span>Consejos</span><span>Retos</span><span>Novedades</span></div></div>
         <div className="stats-row">{CREATOR_STATS.map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
         <div className="favorites-title"><div><p className="section-kicker">Mi equipo</p><h3>Brawlers favoritos</h3></div><span>Imágenes auténticas del juego</span></div>
-        <div className="favorite-grid">{FAVORITES.map((brawler, index) => <motion.article key={brawler.name} initial={{ opacity: 0, scale: .9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * .1 }} className="favorite-card" style={{ "--brawler-color": brawler.color } as React.CSSProperties}><div className="favorite-card__rays" /><span className="favorite-card__index">0{index + 1}</span><img src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} loading="lazy" /><h4>{brawler.name}</h4></motion.article>)}</div>
+        <ScrollFavorites />
         <div className="featured-callout"><span className="featured-callout__icon"><Play /></span><div><p className="section-kicker">Vídeos destacados</p><h3>Las mejores partidas estarán aquí</h3><p>Añade tus enlaces reales para convertir esta zona en tu escaparate de contenido.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Ver canal <ArrowUpRight /></a></div>
       </div>
     </section>
