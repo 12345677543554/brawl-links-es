@@ -312,7 +312,7 @@
   .video-card a { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: .8rem; font-size: .7rem; font-weight: 850; }
   .video-card a:hover { color: var(--primary); }
   .video-card a svg { width: .9rem; }
-  .brawl-section { position: relative; overflow: hidden; padding: 6rem 1.25rem; background: linear-gradient(180deg, var(--background), color-mix(in oklab, var(--accent) 10%, var(--background)) 50%, var(--background)); }
+  .brawl-section { position: relative; overflow: visible; padding: 6rem 1.25rem; background: linear-gradient(180deg, var(--background), color-mix(in oklab, var(--accent) 10%, var(--background)) 50%, var(--background)); }
   .brawl-intro { display: grid; gap: 1.5rem; }
   .brawl-intro h2 span { color: var(--primary); }
   .content-tags { display: flex; flex-wrap: wrap; align-content: flex-end; gap: .45rem; }
