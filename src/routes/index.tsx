@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useRef, type CSSProperties } from "react";
+import { useRef } from "react";
 import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
@@ -70,7 +70,7 @@ function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITE
   const imageY = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [90, 0, -90]);
   const imageScale = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [.82, 1, .92]);
 
-  return <motion.article className="favorite-scene__layer" style={{ opacity, "--brawler-color": brawler.color } as CSSProperties} aria-hidden={index !== 0}>
+  return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1}`} style={{ opacity }} aria-hidden={index !== 0}>
     <div className="favorite-scene__rays" />
     <div className="favorite-scene__copy"><span>{brawler.label} / 03</span><h4>{brawler.name}</h4><p>Brawler favorito de GAMETUIN</p></div>
     <motion.img src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} style={{ y: imageY, scale: imageScale }} />

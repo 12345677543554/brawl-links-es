@@ -329,6 +329,9 @@
   .favorite-scroll__sticky { position: sticky; top: 0; height: 100svh; min-height: 36rem; overflow: hidden; border-block: 1px solid var(--border); }
   .favorite-scroll__steps { position: relative; height: 100%; }
   .favorite-scene__layer { --brawler-color: var(--primary); position: absolute; inset: 0; overflow: hidden; background: linear-gradient(135deg, color-mix(in oklab, var(--brawler-color) 34%, var(--background)), var(--card) 58%, var(--background)); }
+  .favorite-scene__layer--1 { --brawler-color: var(--brawler-nori); }
+  .favorite-scene__layer--2 { --brawler-color: var(--brawler-leon); }
+  .favorite-scene__layer--3 { --brawler-color: var(--brawler-cordelius); }
   .favorite-scene__layer:first-child { opacity: 1; }
   .favorite-scene__rays { position: absolute; left: 58%; top: 48%; width: min(130vw, 58rem); aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; background: repeating-conic-gradient(color-mix(in oklab, var(--brawler-color) 48%, transparent) 0 8deg, transparent 8deg 18deg); opacity: .32; }
   .favorite-scene__copy { position: absolute; left: 1.1rem; top: 11%; z-index: 3; max-width: 80%; }
