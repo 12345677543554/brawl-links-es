@@ -71,14 +71,17 @@ function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: stri
 }
 
 function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITES)[number]; index: number; progress: MotionValue<number> }) {
-  const center = index / (FAVORITES.length - 1);
-  const sceneStart = Math.max(0, center - .3);
-  const sceneEnd = Math.min(1, center + .3);
-  const opacity = useTransform(progress, [sceneStart, center, sceneEnd], [0, 1, 0]);
-  const imageY = useTransform(progress, [sceneStart, sceneEnd], [100, -18]);
-  const imageScale = useTransform(progress, [sceneStart, sceneEnd], [.48, 1.18]);
-  const gadgetY = useTransform(progress, [sceneStart, center, sceneEnd], [-22, 0, -8]);
-  const gadgetScale = useTransform(progress, [sceneStart, sceneEnd], [.78, 1.04]);
+  const sceneRanges = [
+    { visibility: [0, .25, .32], opacity: [1, 1, 0], growth: [0, .28] },
+    { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
+    { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
+  ];
+  const range = sceneRanges[index];
+  const opacity = useTransform(progress, range.visibility, range.opacity);
+  const imageY = useTransform(progress, range.growth, [100, -18]);
+  const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
+  const gadgetY = useTransform(progress, range.growth, [-22, 0]);
+  const gadgetScale = useTransform(progress, range.growth, [.78, 1.04]);
 
   return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1} favorite-scene__layer--${brawler.position}`} style={{ opacity }}>
     <div className="favorite-scene__rays" />
