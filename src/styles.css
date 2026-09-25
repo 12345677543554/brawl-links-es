@@ -325,7 +325,7 @@
   .favorites-title { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: end; gap: 1rem; margin-bottom: 1.2rem; }
   .favorites-title h3 { margin-top: .25rem; font-size: 1.7rem; font-weight: 950; }
   .favorites-title > span { display: none; color: var(--muted-foreground); font-size: .6rem; }
-  .favorite-scroll { position: relative; height: 300svh; }
+  .favorite-scroll { position: relative; height: 360svh; }
   .favorite-scroll__sticky { position: sticky; top: 0; height: 100svh; min-height: 36rem; overflow: hidden; border-block: 1px solid var(--border); }
   .favorite-scroll__steps { position: relative; height: 100%; }
   .favorite-scene__layer { --brawler-color: var(--primary); position: absolute; inset: 0; overflow: hidden; background: linear-gradient(135deg, color-mix(in oklab, var(--brawler-color) 34%, var(--background)), var(--card) 58%, var(--background)); }
@@ -333,12 +333,21 @@
   .favorite-scene__layer--2 { --brawler-color: var(--brawler-leon); }
   .favorite-scene__layer--3 { --brawler-color: var(--brawler-cordelius); }
   .favorite-scene__layer:first-child { opacity: 1; }
-  .favorite-scene__rays { position: absolute; left: 58%; top: 48%; width: min(130vw, 58rem); aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; background: repeating-conic-gradient(color-mix(in oklab, var(--brawler-color) 48%, transparent) 0 8deg, transparent 8deg 18deg); opacity: .32; }
-  .favorite-scene__copy { position: absolute; left: 1.1rem; top: 11%; z-index: 3; max-width: 80%; }
+  .favorite-scene__rays { position: absolute; left: 50%; top: 62%; width: min(130vw, 58rem); aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; background: repeating-conic-gradient(color-mix(in oklab, var(--brawler-color) 48%, transparent) 0 8deg, transparent 8deg 18deg); opacity: .3; }
+  .favorite-scene__copy { position: absolute; left: 1rem; bottom: 5.2rem; z-index: 3; max-width: calc(100% - 2rem); }
   .favorite-scene__copy span { color: var(--primary); font-size: .68rem; font-weight: 950; }
   .favorite-scene__copy h4 { margin-top: .2rem; font-size: clamp(3.2rem, 17vw, 8rem); line-height: .9; font-weight: 950; text-transform: uppercase; }
   .favorite-scene__copy p { margin-top: .55rem; color: var(--muted-foreground); font-size: .67rem; font-weight: 800; text-transform: uppercase; }
-  .favorite-scene__layer img { position: absolute; left: 50%; bottom: 8%; z-index: 2; width: min(92%, 35rem); height: 62%; object-fit: contain; filter: drop-shadow(0 1.5rem 1.5rem color-mix(in oklab, var(--background) 72%, transparent)); }
+  .favorite-scene__brawler { position: absolute; bottom: 8.5rem; z-index: 2; width: min(78%, 31rem); height: 53%; object-fit: contain; filter: drop-shadow(0 1.5rem 1.5rem color-mix(in oklab, var(--background) 72%, transparent)); transform-origin: 50% 100%; }
+  .favorite-scene__layer--left .favorite-scene__brawler { left: -5%; }
+  .favorite-scene__layer--right .favorite-scene__brawler { right: -5%; }
+  .favorite-scene__layer--center .favorite-scene__brawler { left: 50%; translate: -50% 0; }
+  .favorite-scene__gadgets { position: absolute; inset-inline: 1rem; top: 1.1rem; z-index: 5; transform-origin: 50% 0; }
+  .favorite-scene__gadgets-label { display: block; margin-bottom: .45rem; color: var(--primary); font-size: .56rem; font-weight: 950; text-align: center; text-transform: uppercase; }
+  .favorite-scene__gadgets > div { display: flex; justify-content: center; gap: .55rem; }
+  .favorite-scene__gadgets figure { display: grid; grid-template-columns: 2.6rem minmax(0,1fr); align-items: center; width: min(10rem, calc(50% - .3rem)); min-height: 3.4rem; border: 1px solid color-mix(in oklab, var(--brawler-color) 60%, var(--border)); border-radius: .4rem; padding: .35rem .45rem; background: color-mix(in oklab, var(--card) 88%, transparent); backdrop-filter: blur(12px); }
+  .favorite-scene__gadgets img { width: 2.35rem; height: 2.35rem; object-fit: contain; }
+  .favorite-scene__gadgets figcaption { overflow-wrap: anywhere; font-size: .5rem; font-weight: 850; line-height: 1.15; text-transform: uppercase; }
   .favorite-scroll__progress { position: absolute; inset-inline: 1rem; bottom: 1.75rem; z-index: 8; height: .22rem; overflow: hidden; background: color-mix(in oklab, var(--foreground) 16%, transparent); }
   .favorite-scroll__progress span { display: block; width: 100%; height: 100%; transform-origin: left; background: var(--primary); }
   .favorite-scroll__hint { position: absolute; right: 1rem; bottom: 2.3rem; z-index: 8; color: var(--muted-foreground); font-size: .5rem; font-weight: 850; }
@@ -399,9 +408,19 @@
   .brawl-intro { grid-template-columns: minmax(0,1.4fr) minmax(0,.6fr); align-items: end; }
   .content-tags { justify-content: flex-end; }
   .favorite-scroll__sticky { border: 1px solid var(--border); border-radius: .5rem; }
-  .favorite-scene__copy { left: 3rem; top: 50%; max-width: 44%; transform: translateY(-50%); }
+  .favorite-scene__copy { left: 3rem; bottom: 3.6rem; max-width: 44%; }
   .favorite-scene__copy h4 { font-size: clamp(4rem, 9vw, 7.5rem); }
-  .favorite-scene__layer img { left: 54%; bottom: 5%; width: 48%; height: 88%; }
+  .favorite-scene__brawler { bottom: 2.2rem; width: min(46%, 31rem); height: 72%; }
+  .favorite-scene__layer--left .favorite-scene__brawler { left: 4%; }
+  .favorite-scene__layer--right .favorite-scene__brawler { right: 4%; }
+  .favorite-scene__layer--center .favorite-scene__brawler { left: 50%; }
+  .favorite-scene__layer--left .favorite-scene__copy { left: auto; right: 3rem; text-align: right; }
+  .favorite-scene__layer--right .favorite-scene__copy { left: 3rem; }
+  .favorite-scene__layer--center .favorite-scene__copy { left: 50%; max-width: 80%; translate: -50% 0; text-align: center; }
+  .favorite-scene__gadgets { inset-inline: 3rem; top: 1.5rem; }
+  .favorite-scene__gadgets figure { grid-template-columns: 3.15rem minmax(0,1fr); width: 13rem; min-height: 4rem; }
+  .favorite-scene__gadgets img { width: 2.9rem; height: 2.9rem; }
+  .favorite-scene__gadgets figcaption { font-size: .58rem; }
   .favorite-scroll__progress { inset-inline: 3rem; bottom: 2.25rem; }
   .favorite-scroll__hint { right: 3rem; bottom: 2.8rem; }
 }
