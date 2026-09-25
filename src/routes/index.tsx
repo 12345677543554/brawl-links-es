@@ -7,6 +7,12 @@ import bgTexture from "@/assets/bg-texture.png";
 import nori from "@/assets/brawl/nori-official.png.asset.json";
 import leon from "@/assets/brawl/leon-model.png.asset.json";
 import cordelius from "@/assets/brawl/cordelius-model.png.asset.json";
+import noriGadget1 from "@/assets/brawl/nori-gadget-1.png.asset.json";
+import noriGadget2 from "@/assets/brawl/nori-gadget-2.png.asset.json";
+import leonGadget1 from "@/assets/brawl/leon-gadget-1.png.asset.json";
+import leonGadget2 from "@/assets/brawl/leon-gadget-2.png.asset.json";
+import cordeliusGadget1 from "@/assets/brawl/cordelius-gadget-1.png.asset.json";
+import cordeliusGadget2 from "@/assets/brawl/cordelius-gadget-2.png.asset.json";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -27,9 +33,9 @@ const CREATOR_STATS = [
 ];
 
 const FAVORITES = [
-  { name: "Nori", image: nori.url, color: "var(--brawler-nori)", label: "01" },
-  { name: "León", image: leon.url, color: "var(--brawler-leon)", label: "02" },
-  { name: "Cordelius", image: cordelius.url, color: "var(--brawler-cordelius)", label: "03" },
+  { name: "Nori", image: nori.url, label: "01", position: "left", gadgets: [{ name: "Merienda de makis", image: noriGadget1.url }, { name: "Pesca de arrastre", image: noriGadget2.url }] },
+  { name: "León", image: leon.url, label: "02", position: "right", gadgets: [{ name: "Proyector clonador", image: leonGadget1.url }, { name: "Piruleta furtiva", image: leonGadget2.url }] },
+  { name: "Cordelius", image: cordelius.url, label: "03", position: "center", gadgets: [{ name: "Replantar", image: cordeliusGadget1.url }, { name: "Champiñón venenoso", image: cordeliusGadget2.url }] },
 ];
 
 export const Route = createFileRoute("/")({
@@ -65,15 +71,26 @@ function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: stri
 }
 
 function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITES)[number]; index: number; progress: MotionValue<number> }) {
-  const center = index / (FAVORITES.length - 1);
-  const opacity = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [0, 1, 0]);
-  const imageY = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [90, 0, -90]);
-  const imageScale = useTransform(progress, [Math.max(0, center - .28), center, Math.min(1, center + .28)], [.82, 1, .92]);
+  const sceneRanges = [
+    { visibility: [0, .25, .32], opacity: [1, 1, 0], growth: [0, .28] },
+    { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
+    { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
+  ];
+  const range = sceneRanges[index];
+  const opacity = useTransform(progress, range.visibility, range.opacity);
+  const imageY = useTransform(progress, range.growth, [100, -18]);
+  const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
+  const gadgetY = useTransform(progress, range.growth, [-22, 0]);
+  const gadgetScale = useTransform(progress, range.growth, [.78, 1.04]);
 
-  return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1}`} style={{ opacity }} aria-hidden={index !== 0}>
+  return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1} favorite-scene__layer--${brawler.position}`} style={{ opacity }}>
     <div className="favorite-scene__rays" />
+    <motion.div className="favorite-scene__gadgets" style={{ y: gadgetY, scale: gadgetScale }}>
+      <span className="favorite-scene__gadgets-label">Gadgets</span>
+      <div>{brawler.gadgets.map((gadget) => <figure key={gadget.name}><img src={gadget.image} alt="" /><figcaption>{gadget.name}</figcaption></figure>)}</div>
+    </motion.div>
     <div className="favorite-scene__copy"><span>{brawler.label} / 03</span><h4>{brawler.name}</h4><p>Brawler favorito de GAMETUIN</p></div>
-    <motion.img src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} style={{ y: imageY, scale: imageScale }} />
+    <motion.img className="favorite-scene__brawler" src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} style={{ y: imageY, scale: imageScale }} />
   </motion.article>;
 }
 
