@@ -296,6 +296,10 @@
   .video-card { overflow: hidden; border: 1px solid var(--border); border-radius: .5rem; background: var(--card); transition: transform .22s ease; }
   .video-card:hover { transform: translateY(-5px); }
   .video-thumb { position: relative; display: grid; aspect-ratio: 16/9; place-items: center; overflow: hidden; background: linear-gradient(135deg, var(--secondary), var(--card)); }
+  .video-thumb__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .video-thumb__cover ~ .video-thumb__number,
+  .video-thumb__cover ~ .video-play,
+  .video-thumb__cover ~ .video-coming { z-index: 2; }
   .video-thumb::before { content: ""; position: absolute; width: 18rem; height: 18rem; border-radius: 50%; background: repeating-conic-gradient(currentColor 0 10deg, transparent 10deg 22deg); opacity: .13; }
   .video-thumb--youtube { color: var(--brand-youtube); }
   .video-thumb--tiktok { color: var(--chart-3); }

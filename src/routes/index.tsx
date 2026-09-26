@@ -13,6 +13,7 @@ import leonGadget1 from "@/assets/brawl/leon-gadget-1.png.asset.json";
 import leonGadget2 from "@/assets/brawl/leon-gadget-2.png.asset.json";
 import cordeliusGadget1 from "@/assets/brawl/cordelius-gadget-1.png.asset.json";
 import cordeliusGadget2 from "@/assets/brawl/cordelius-gadget-2.png.asset.json";
+import directoPortada from "@/assets/directo-portada.jpeg.asset.json";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -21,7 +22,7 @@ const SOCIAL_LINKS = {
 };
 
 const LATEST_CONTENT = [
-  { title: "Siguiente directo a las 4 de la tarde (hora española)", date: "En directo", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok", published: true },
+  { title: "Siguiente directo a las 4 de la tarde (hora española)", date: "En directo", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok", published: true, cover: directoPortada.url as string },
   { title: "Próximo vídeo de GAMETUIN", date: "Muy pronto", platform: "YouTube", href: SOCIAL_LINKS.youtube, accent: "youtube", published: false },
   { title: "Más jugadas y novedades", date: "Muy pronto", platform: "GAMETUIN", href: SOCIAL_LINKS.youtube, accent: "brawl", published: false },
 ];
@@ -155,7 +156,7 @@ function Index() {
       <div className="section-inner">
         <SectionHeading eyebrow="Último contenido" title="Nuevas jugadas en camino" copy="Los vídeos reales aparecerán aquí en cuanto GAMETUIN añada sus enlaces." />
         <div className="video-grid">{LATEST_CONTENT.map((video, index) => <motion.article key={video.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ delay: index * .08 }} className="video-card">
-          <div className={`video-thumb video-thumb--${video.accent}${video.published ? " video-thumb--published" : ""}`}><span className="video-thumb__number">0{index + 1}</span><div className="video-play"><Play /></div><span className="video-coming">{video.published ? "DISPONIBLE" : "PRÓXIMAMENTE"}</span></div>
+          <div className={`video-thumb video-thumb--${video.accent}${video.published ? " video-thumb--published" : ""}`}>{video.cover ? <img src={video.cover} alt="" className="video-thumb__cover" loading="lazy" /> : null}<span className="video-thumb__number">0{index + 1}</span><div className="video-play"><Play /></div><span className="video-coming">{video.published ? "DISPONIBLE" : "PRÓXIMAMENTE"}</span></div>
           <div className="video-card__body"><span className="video-platform">{video.platform}</span><h3>{video.title}</h3><p><CalendarDays /> {video.date}</p><a href={video.href} target="_blank" rel="noopener noreferrer">Ir al canal <ChevronRight /></a></div>
         </motion.article>)}</div>
       </div>
