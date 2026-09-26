@@ -13,6 +13,7 @@ import leonGadget1 from "@/assets/brawl/leon-gadget-1.png.asset.json";
 import leonGadget2 from "@/assets/brawl/leon-gadget-2.png.asset.json";
 import cordeliusGadget1 from "@/assets/brawl/cordelius-gadget-1.png.asset.json";
 import cordeliusGadget2 from "@/assets/brawl/cordelius-gadget-2.png.asset.json";
+import directoPortada from "@/assets/directo-portada.jpeg.asset.json";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
