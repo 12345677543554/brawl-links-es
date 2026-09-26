@@ -306,6 +306,8 @@
   .video-thumb--brawl { color: var(--primary); }
   .video-thumb__number { position: absolute; left: 1rem; top: .7rem; color: var(--foreground); font-size: 2.5rem; font-weight: 950; opacity: .12; }
   .video-play { position: relative; z-index: 1; display: grid; width: 3.3rem; height: 3.3rem; place-items: center; border-radius: 50%; background: var(--foreground); color: var(--background); }
+  .video-play--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.85); backdrop-filter: blur(2px); transition: transform .2s ease, background .2s ease; }
+  .video-play--ghost:hover { background: rgba(255,255,255,.18); transform: scale(1.08); }
   .video-play svg { width: 1.2rem; fill: currentColor; }
   .video-coming { position: absolute; right: .8rem; bottom: .8rem; border-radius: .25rem; padding: .3rem .45rem; background: var(--background); color: var(--primary); font-size: .54rem; font-weight: 950; }
   .video-thumb--published .video-coming { background: var(--brand-tiktok); color: #fff; box-shadow: 0 0 1.2rem -0.2rem var(--brand-tiktok); }
