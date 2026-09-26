@@ -76,7 +76,7 @@ function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITE
     { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
     { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
   ];
-  const range = sceneRanges[index];
+  const range = sceneRanges[index]!;
   const opacity = useTransform(progress, range.visibility, range.opacity);
   const imageY = useTransform(progress, range.growth, [100, -18]);
   const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
