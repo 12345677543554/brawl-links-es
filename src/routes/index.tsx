@@ -21,7 +21,7 @@ const SOCIAL_LINKS = {
 };
 
 const LATEST_CONTENT = [
-  { title: "Clip de Brawl Stars en TikTok", date: "Publicado", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok", published: true },
+  { title: "Siguiente directo a las 4 de la tarde (hora española)", date: "En directo", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok", published: true },
   { title: "Próximo vídeo de GAMETUIN", date: "Muy pronto", platform: "YouTube", href: SOCIAL_LINKS.youtube, accent: "youtube", published: false },
   { title: "Más jugadas y novedades", date: "Muy pronto", platform: "GAMETUIN", href: SOCIAL_LINKS.youtube, accent: "brawl", published: false },
 ];
@@ -76,7 +76,7 @@ function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITE
     { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
     { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
   ];
-  const range = sceneRanges[index];
+  const range = sceneRanges[index]!;
   const opacity = useTransform(progress, range.visibility, range.opacity);
   const imageY = useTransform(progress, range.growth, [100, -18]);
   const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
