@@ -21,8 +21,8 @@ const SOCIAL_LINKS = {
 };
 
 const LATEST_CONTENT = [
+  { title: "Clip de Brawl Stars en TikTok", date: "Publicado", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok" },
   { title: "Próximo vídeo de GAMETUIN", date: "Muy pronto", platform: "YouTube", href: SOCIAL_LINKS.youtube, accent: "youtube" },
-  { title: "Próximo clip de Brawl Stars", date: "Muy pronto", platform: "TikTok", href: SOCIAL_LINKS.tiktok, accent: "tiktok" },
   { title: "Más jugadas y novedades", date: "Muy pronto", platform: "GAMETUIN", href: SOCIAL_LINKS.youtube, accent: "brawl" },
 ];
 
