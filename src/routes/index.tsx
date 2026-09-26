@@ -22,7 +22,7 @@ const SOCIAL_LINKS = {
 };
 
 const LATEST_CONTENT = [
-  { title: "Siguiente directo a las 4 de la tarde (hora española)", date: "En directo", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok", published: true, cover: directoPortada.url as string },
+  { title: "Siguiente directo a las 4 de la tarde (hora española)", date: "Ya disponible en mi canal", platform: "TikTok", href: "https://vm.tiktok.com/ZGdQn8TA4/", accent: "tiktok", published: true, cover: directoPortada.url as string },
   { title: "Próximo vídeo de GAMETUIN", date: "Muy pronto", platform: "YouTube", href: SOCIAL_LINKS.youtube, accent: "youtube", published: false },
   { title: "Más jugadas y novedades", date: "Muy pronto", platform: "GAMETUIN", href: SOCIAL_LINKS.youtube, accent: "brawl", published: false },
 ];
