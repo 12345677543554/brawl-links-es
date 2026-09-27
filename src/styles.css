@@ -505,3 +505,35 @@
     .sd-io.sd-in{opacity:1;transform:none}
   }
 }
+
+/* ===== Premium cinematic layer ===== */
+@keyframes cine-in{from{opacity:0;filter:blur(14px);transform:translateY(28px) scale(.98)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes cine-bg{to{transform:translateY(25%) scale(1.18);filter:blur(4px) saturate(1.3)}}
+@keyframes cine-fill{from{background-size:0% 100%}to{background-size:100% 100%}}
+@keyframes cine-rise{from{opacity:0;transform:translateY(80px) scale(.96);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes cine-card{from{opacity:.2;transform:perspective(1000px) rotateY(-12deg) translateZ(-80px)}to{opacity:1;transform:none}}
+
+.section-heading h2,.brawl-intro h2{font-size:clamp(2.4rem,6vw,5rem);line-height:.98;letter-spacing:-.035em}
+.content-band,.brawl-section{padding-block:clamp(5rem,12vw,10rem)}
+
+@media (prefers-reduced-motion: no-preference){
+  .profile-name h1{animation:cine-in 1.1s cubic-bezier(.16,1,.3,1) .35s both}
+  .profile-role{animation:cine-in .9s cubic-bezier(.16,1,.3,1) .6s both}
+  .profile-intro{animation:cine-in .9s cubic-bezier(.16,1,.3,1) .75s both}
+  .profile-actions{animation:cine-in .9s cubic-bezier(.16,1,.3,1) .9s both}
+  .top-nav{animation:cine-in .8s cubic-bezier(.16,1,.3,1) .2s both}
+  .platform-card,.video-card,.featured-callout,.mini-cta,.action-primary,.action-secondary{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1)}
+  .platform-card:hover,.featured-callout:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 30px 60px -25px oklch(.6 .2 280 / .55)}
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .profile-hero__texture{animation:cine-bg linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+    .section-heading h2,.brawl-intro h2{background:linear-gradient(90deg,currentColor,currentColor) no-repeat 0 0 / 0% 100%,linear-gradient(90deg,color-mix(in oklab,currentColor 25%,transparent),color-mix(in oklab,currentColor 25%,transparent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:cine-fill linear both;animation-timeline:view();animation-range:entry 20% cover 50%}
+    .brawl-intro h2 span{-webkit-text-fill-color:initial}
+    .section-heading>p:last-child{animation:cine-rise linear both;animation-timeline:view();animation-range:entry 10% cover 35%}
+    .platform-grid{perspective:1200px}
+    .platform-card>div{animation:cine-rise linear both;animation-timeline:view();animation-range:entry 10% cover 40%}
+    .favorites-title h3{animation:cine-rise linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+  }
+}
