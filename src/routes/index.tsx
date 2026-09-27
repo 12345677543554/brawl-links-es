@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
@@ -111,8 +111,25 @@ function ScrollFavorites() {
   </div>;
 }
 
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  return <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
+}
+
+function useScrollFallback() {
+  useEffect(() => {
+    if (CSS.supports("animation-timeline: view()") || !("IntersectionObserver" in window)) return;
+    const els = document.querySelectorAll(".section-heading, .platform-card, .brawl-intro, .stats-row > div, .featured-callout, .favorites-title, .site-footer__inner");
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle("sd-in", e.isIntersecting)), { threshold: .15 });
+    els.forEach((el) => { el.classList.add("sd-io"); io.observe(el); });
+    return () => io.disconnect();
+  }, []);
+}
+
 function Index() {
+  useScrollFallback();
   return <main className="site-shell">
+    <ScrollProgress />
     <div className="page-loader" aria-hidden="true"><div className="loader-mark"><Gamepad2 /></div></div>
     <section className="profile-hero">
       <div className="profile-hero__texture" style={{ backgroundImage: `url(${bgTexture})` }} />
