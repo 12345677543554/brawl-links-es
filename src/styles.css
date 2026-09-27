@@ -449,3 +449,59 @@
   .favorite-scene__layer { position: relative; height: 32rem; opacity: 1 !important; border: 1px solid var(--border); border-radius: .5rem; }
   .favorite-scroll__progress, .favorite-scroll__hint { display: none; }
 }
+
+/* ===== Scroll-driven layer ===== */
+.scroll-progress{position:fixed;inset:0 0 auto 0;height:4px;z-index:100;transform-origin:0 50%;background:linear-gradient(90deg,var(--brand-gold, oklch(.85 .17 90)),oklch(.65 .2 260),oklch(.6 .24 300));box-shadow:0 0 12px oklch(.85 .17 90 / .6);pointer-events:none}
+@keyframes sd-up{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes sd-left{from{opacity:0;transform:translateX(-80px) rotate(-3deg)}to{opacity:1;transform:none}}
+@keyframes sd-right{from{opacity:0;transform:translateX(80px) rotate(3deg)}to{opacity:1;transform:none}}
+@keyframes sd-scale{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+@keyframes sd-clip{from{clip-path:inset(0 100% 0 0 round 24px);opacity:.3}to{clip-path:inset(0 0 0 0 round 24px);opacity:1}}
+@keyframes sd-clip-circle{from{clip-path:circle(10% at 50% 50%)}to{clip-path:circle(80% at 50% 50%)}}
+@keyframes sd-zoom{from{transform:scale(1.25)}to{transform:scale(1)}}
+@keyframes sd-drift{from{transform:translateX(-6%)}to{transform:translateX(6%)}}
+@keyframes sd-para-slow{to{transform:translateY(30%)}}
+@keyframes sd-para-fast{to{transform:translateY(-220px) rotate(90deg)}}
+@keyframes sd-para-mid{to{transform:translateY(140px) rotate(-60deg)}}
+@keyframes sd-hero-out{to{opacity:.15;transform:translateY(-60px) scale(.94)}}
+@keyframes sd-spin{to{transform:rotate(180deg) scale(1.2)}}
+@keyframes sd-tilt{from{opacity:0;transform:perspective(800px) rotateX(25deg) translateY(50px)}to{opacity:1;transform:none}}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .profile-hero__texture{animation:sd-para-slow linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+    .profile-hero .page-decor span:nth-child(odd){animation:sd-para-fast linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+    .profile-hero .page-decor span:nth-child(even){animation:sd-para-mid linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+    .profile-hero__content{animation:sd-hero-out linear both;animation-timeline:scroll(root);animation-range:0 90vh}
+    .profile-avatar-burst{animation:sd-spin linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+    .hero-strip{animation:sd-drift linear both;animation-timeline:view()}
+
+    .section-heading,.favorites-title{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .platform-card--youtube{animation:sd-left linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .platform-card--tiktok{animation:sd-right linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .video-thumb{animation:sd-clip linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .video-thumb__cover{animation:sd-zoom linear both;animation-timeline:view()}
+    .video-card__body{animation:sd-up linear both;animation-timeline:view();animation-range:entry 10% cover 40%}
+    .latest-section .page-decor span,.brawl-section .page-decor span:nth-child(odd){animation:sd-para-fast linear both;animation-timeline:view()}
+    .brawl-section .page-decor span:nth-child(even){animation:sd-para-mid linear both;animation-timeline:view()}
+    .brawl-intro>div:first-child{animation:sd-clip linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .content-tags span:nth-child(odd){animation:sd-right linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .content-tags span:nth-child(even){animation:sd-left linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .stats-row>div{animation:sd-scale linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .stats-row>div:nth-child(2){animation-range:entry 10% cover 40%}
+    .stats-row>div:nth-child(3){animation-range:entry 20% cover 45%}
+    .featured-callout{animation:sd-tilt linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .featured-callout__icon{animation:sd-spin linear both;animation-timeline:view()}
+    .site-footer__inner{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+  }
+  @media (max-width:767px) and (prefers-reduced-motion: no-preference){
+    .platform-card--youtube,.platform-card--tiktok,.content-tags span{animation-name:sd-up}
+  }
+}
+/* Fallback via IntersectionObserver */
+@supports not (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sd-io{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+    .sd-io.sd-in{opacity:1;transform:none}
+  }
+}
