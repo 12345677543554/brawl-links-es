@@ -111,6 +111,55 @@ function ScrollFavorites() {
   </div>;
 }
 
+const UNIVERSE_ORBS = [
+  { img: nori.url, x: -300, y: -150 }, { img: cordelius.url, x: 300, y: -120 },
+  { img: noriGadget1.url, x: -340, y: 120 }, { img: leonGadget1.url, x: 330, y: 150 },
+  { img: cordeliusGadget1.url, x: -160, y: 230 }, { img: leonGadget2.url, x: 170, y: -240 },
+];
+const UNIVERSE_CARDS = [
+  { t: "Atrapagemas", d: "Consigue 10 gemas" }, { t: "Balón Brawl", d: "Marca 2 goles" },
+  { t: "Supervivencia", d: "El último en pie" }, { t: "Atraco", d: "Revienta la caja" },
+];
+
+function UniverseOrb({ orb, i, p }: { orb: (typeof UNIVERSE_ORBS)[number]; i: number; p: MotionValue<number> }) {
+  const s = typeof window !== "undefined" && window.innerWidth < 768 ? .5 : 1;
+  const x = useTransform(p, [.25, .55, .9], [0, orb.x * s, orb.x * s * .4]);
+  const y = useTransform(p, [.25, .55, .9], [0, orb.y * s, orb.y * s * .4]);
+  const opacity = useTransform(p, [.25 + i * .02, .4, .82, .95], [0, 1, 1, 0]);
+  const rotate = useTransform(p, [.25, 1], [0, i % 2 ? 25 : -25]);
+  return <motion.div className="universe__orb" style={{ x, y, opacity, rotate }}><img src={orb.img} alt="" loading="lazy" /></motion.div>;
+}
+
+function UniverseCard({ c, i, p }: { c: (typeof UNIVERSE_CARDS)[number]; i: number; p: MotionValue<number> }) {
+  const start = .5 + i * .04;
+  const opacity = useTransform(p, [start, start + .08, .86, .95], [0, 1, 1, 0]);
+  const y = useTransform(p, [start, start + .08], [50, 0]);
+  return <motion.div className="universe__card" style={{ opacity, y }}><b>{c.t}</b><span>{c.d}</span></motion.div>;
+}
+
+function BrawlUniverse() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: p } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const scale = useTransform(p, [0, .2, .45, .7, 1], [.3, .7, 1, 1.25, .6]);
+  const coreOpacity = useTransform(p, [0, .08, .92, 1], [0, 1, 1, .3]);
+  const ringRotate = useTransform(p, [0, 1], [0, 270]);
+  const headOpacity = useTransform(p, [0, .06, .3, .4], [0, 1, 1, 0]);
+  const headY = useTransform(p, [0, .4], [30, -60]);
+  const head2Opacity = useTransform(p, [.42, .5, .88, .96], [0, 1, 1, 0]);
+  return <section ref={ref} className="universe" aria-label="El universo de Brawl Stars">
+    <div className="universe__sticky">
+      <motion.div className="universe__head" style={{ opacity: headOpacity, y: headY }}><p className="section-kicker">Entra en la arena</p><h2>El universo de Brawl Stars</h2><p>Brawlers, gadgets y modos de juego: todo lo que hace especial al juego que protagoniza mi contenido.</p></motion.div>
+      <motion.div className="universe__head" style={{ opacity: head2Opacity }}><p className="section-kicker">Modos de juego</p><h2>Cada partida, una historia</h2></motion.div>
+      <motion.div className="universe__core" style={{ scale, opacity: coreOpacity }}>
+        <div className="universe__glow" /><motion.div className="universe__ring" style={{ rotate: ringRotate }} />
+        {UNIVERSE_ORBS.map((o, i) => <UniverseOrb key={i} orb={o} i={i} p={p} />)}
+        <img src={leon.url} alt="León, brawler de Brawl Stars" />
+      </motion.div>
+      <div className="universe__cards">{UNIVERSE_CARDS.map((c, i) => <UniverseCard key={c.t} c={c} i={i} p={p} />)}</div>
+    </div>
+  </section>;
+}
+
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
@@ -130,6 +179,7 @@ function Index() {
   useScrollFallback();
   return <main className="site-shell">
     <ScrollProgress />
+    <div className="arena-bg" aria-hidden="true"><div className="arena-bg__stars" /><div className="arena-bg__floor" /><span className="arena-bg__shape">★</span><span className="arena-bg__shape">✦</span><span className="arena-bg__shape">◆</span></div>
     <div className="page-loader" aria-hidden="true"><div className="loader-mark"><Gamepad2 /></div></div>
     <section className="profile-hero">
       <div className="profile-hero__texture" style={{ backgroundImage: `url(${bgTexture})` }} />
@@ -157,6 +207,8 @@ function Index() {
       </div>
       <div className="hero-strip"><span><Trophy /> BRAWLERS</span><span><Play /> VÍDEOS</span><span><Sparkles /> JUGADAS</span></div>
     </section>
+
+    <BrawlUniverse />
 
     <section className="content-band platforms-section">
       <div className="section-inner">
