@@ -103,6 +103,9 @@
   --brawler-nori: oklch(0.78 0.17 84);
   --brawler-leon: oklch(0.72 0.2 145);
   --brawler-cordelius: oklch(0.66 0.21 305);
+  --tiktok-ink: oklch(0.08 0.008 270);
+  --tiktok-cyan: oklch(0.87 0.15 190);
+  --tiktok-pink: oklch(0.65 0.24 8);
 }
 
 @layer base {
@@ -306,11 +309,11 @@
   .video-thumb--brawl { color: var(--primary); }
   .video-thumb__number { position: absolute; left: 1rem; top: .7rem; color: var(--foreground); font-size: 2.5rem; font-weight: 950; opacity: .12; }
   .video-play { position: relative; z-index: 1; display: grid; width: 3.3rem; height: 3.3rem; place-items: center; border-radius: 50%; background: var(--foreground); color: var(--background); }
-  .video-play--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.85); backdrop-filter: blur(2px); transition: transform .2s ease, background .2s ease; }
-  .video-play--ghost:hover { background: rgba(255,255,255,.18); transform: scale(1.08); }
+   .video-play--ghost { background: transparent; color: var(--foreground); border: 2px solid var(--foreground); transition: transform .2s ease, background .2s ease; }
+   .video-play--ghost:hover { background: color-mix(in oklab, var(--foreground) 18%, transparent); transform: scale(1.08); }
   .video-play svg { width: 1.2rem; fill: currentColor; }
   .video-coming { position: absolute; right: .8rem; bottom: .8rem; border-radius: .25rem; padding: .3rem .45rem; background: var(--background); color: var(--primary); font-size: .54rem; font-weight: 950; }
-  .video-thumb--published .video-coming { background: var(--brand-tiktok); color: #fff; box-shadow: 0 0 1.2rem -0.2rem var(--brand-tiktok); }
+   .video-thumb--published .video-coming { background: var(--brand-tiktok); color: var(--brand-tiktok-foreground); box-shadow: 0 0 1.2rem -0.2rem var(--brand-tiktok); }
   .video-thumb--published .video-play { animation: pulse-ring 1.8s ease-out infinite; }
   @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.45); } 70% { box-shadow: 0 0 0 1.1rem rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
   @media (prefers-reduced-motion: reduce) { .video-thumb--published .video-play { animation: none; } }
@@ -477,8 +480,7 @@
     .hero-strip{animation:sd-drift linear both;animation-timeline:view()}
 
     .section-heading,.favorites-title{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
-    .platform-card--youtube{animation:sd-left linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
-    .platform-card--tiktok{animation:sd-right linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+     /* Keep interactive text on an untransformed layer for crisp rendering. */
     .video-thumb{animation:sd-clip linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
     .video-thumb__cover{animation:sd-zoom linear both;animation-timeline:view()}
     .video-card__body{animation:sd-up linear both;animation-timeline:view();animation-range:entry 10% cover 40%}
@@ -495,7 +497,7 @@
     .site-footer__inner{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
   }
   @media (max-width:767px) and (prefers-reduced-motion: no-preference){
-    .platform-card--youtube,.platform-card--tiktok,.content-tags span{animation-name:sd-up}
+     .content-tags span{animation-name:sd-up}
   }
 }
 /* Fallback via IntersectionObserver */
@@ -533,7 +535,7 @@
     .brawl-intro h2 span{-webkit-text-fill-color:initial}
     .section-heading>p:last-child{animation:cine-rise linear both;animation-timeline:view();animation-range:entry 10% cover 35%}
     .platform-grid{perspective:1200px}
-    .platform-card>div{animation:cine-rise linear both;animation-timeline:view();animation-range:entry 10% cover 40%}
+     /* No animated filter on platform labels or their links. */
     .favorites-title h3{animation:cine-rise linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
   }
 }
