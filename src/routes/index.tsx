@@ -77,7 +77,7 @@ function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITE
     { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
     { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
   ];
-  const range = sceneRanges[index]!;
+  const range = sceneRanges[index] ?? sceneRanges[0];
   const opacity = useTransform(progress, range.visibility, range.opacity);
   const imageY = useTransform(progress, range.growth, [100, -18]);
   const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
@@ -165,6 +165,40 @@ function ScrollProgress() {
   return <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
 }
 
+function GalleryWord({ word, index, progress }: { word: string; index: number; progress: MotionValue<number> }) {
+  const opacity = useTransform(progress, [index * .035, index * .035 + .14], [.3, 1]);
+  const y = useTransform(progress, [index * .035, index * .035 + .14], [18, 0]);
+  return <motion.span style={{ opacity, y }} className="gallery-word">{word}</motion.span>;
+}
+
+function HorizontalGallery() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.6667%"]);
+  const title = "Mis brawlers favoritos".split(" ");
+  return <section ref={ref} className="gallery" aria-label="Galería de brawlers favoritos">
+    <div className="gallery__sticky">
+      <div className="gallery__header"><p className="section-kicker">Mi equipo / 03</p><h2>{title.map((word, i) => <GalleryWord key={i} word={word} index={i} progress={scrollYProgress} />)}</h2></div>
+      <motion.div className="gallery__track" style={{ x }}>
+        {FAVORITES.map((brawler, i) => <GalleryPanel key={brawler.name} brawler={brawler} index={i} progress={scrollYProgress} />)}
+      </motion.div>
+      <div className="gallery__progress" aria-hidden="true"><motion.span style={{ scaleX: scrollYProgress }} /></div>
+    </div>
+  </section>;
+}
+
+function GalleryPanel({ brawler, index, progress }: { brawler: (typeof FAVORITES)[number]; index: number; progress: MotionValue<number> }) {
+  const center = index / 2;
+  const scale = useTransform(progress, [center - .5, center, center + .5], [.78, 1, .78]);
+  const imageY = useTransform(progress, [center - .5, center + .5], [50, -50]);
+  const copyX = useTransform(progress, [center - .5, center + .5], [36, -36]);
+  return <article className={`gallery__panel gallery__panel--${index + 1}`}>
+    <div className="gallery__rays" aria-hidden="true" />
+    <motion.img src={brawler.image} alt={brawler.name} loading="lazy" className="gallery__image" style={{ scale, y: imageY }} />
+    <motion.div className="gallery__copy" style={{ x: copyX }}><span>{brawler.label} / 03</span><h3>{brawler.name}</h3><p>Brawler favorito de GAMETUIN</p></motion.div>
+  </article>;
+}
+
 function useScrollFallback() {
   useEffect(() => {
     if (CSS.supports("animation-timeline: view()") || !("IntersectionObserver" in window)) return;
@@ -219,6 +253,8 @@ function Index() {
         </div>
       </div>
     </section>
+
+    <HorizontalGallery />
 
     <section id="contenido" className="content-band latest-section">
       <Decor />
