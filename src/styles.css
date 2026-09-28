@@ -575,3 +575,60 @@
 .universe__card b{display:block;font-weight:800;color:oklch(.85 .17 90)}
 .universe__card span{font-size:.8rem;color:var(--muted-foreground)}
 @media (max-width:767px){.universe{height:340svh}.universe__card{min-width:8rem;padding:.7rem .8rem}.universe__cards{gap:.5rem}}
+
+/* Clear, tactile platform links — the link and its text never inherit a blur animation. */
+.platform-card { transform: none; }
+.platform-card--tiktok .platform-icon {
+  background: var(--tiktok-ink); color: var(--foreground);
+  box-shadow: -3px 2px var(--tiktok-cyan), 3px -2px var(--tiktok-pink);
+}
+.platform-card--tiktok a {
+  min-height: 3rem; padding: .65rem 1rem; border: 1px solid transparent; border-radius: .45rem;
+  background: linear-gradient(var(--tiktok-ink), var(--tiktok-ink)) padding-box,
+    linear-gradient(115deg, var(--tiktok-cyan), var(--tiktok-pink)) border-box;
+  color: var(--foreground);
+  box-shadow: -3px 3px 0 color-mix(in oklab, var(--tiktok-cyan) 38%, transparent), 3px -3px 0 color-mix(in oklab, var(--tiktok-pink) 38%, transparent);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.platform-card--tiktok a:hover { transform: translateY(-2px); box-shadow: -5px 5px 12px color-mix(in oklab, var(--tiktok-cyan) 45%, transparent), 5px -5px 12px color-mix(in oklab, var(--tiktok-pink) 45%, transparent); }
+.platform-card a:focus-visible, .profile-actions a:focus-visible, .video-play:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+@media (min-width:768px) { .platform-card--tiktok a { border: 1px solid transparent; padding: .65rem 1rem; } }
+
+/* Vertical scrolling advances three full-screen panels horizontally. */
+.gallery { position: relative; height: 300svh; }
+.gallery__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; background: color-mix(in oklab, var(--background) 90%, transparent); }
+.gallery__header { position: absolute; top: clamp(1.5rem, 6vh, 4rem); inset-inline: 1.25rem; z-index: 3; max-width: 68rem; margin-inline: auto; pointer-events: none; }
+.gallery__header h2 { display: flex; flex-wrap: wrap; gap: .28em; margin-top: .4rem; font-size: clamp(2.25rem, 5vw, 4.75rem); line-height: 1; font-weight: 950; text-transform: uppercase; }
+.gallery-word { display: inline-block; }
+.gallery__track { display: flex; width: 300vw; height: 100%; will-change: transform; }
+.gallery__panel { --panel-color: var(--brawler-nori); position: relative; width: 100vw; height: 100%; flex: none; overflow: hidden; background: radial-gradient(circle at 50% 70%, color-mix(in oklab, var(--panel-color) 29%, transparent), transparent 56%); }
+.gallery__panel--2 { --panel-color: var(--brawler-leon); }
+.gallery__panel--3 { --panel-color: var(--brawler-cordelius); }
+.gallery__rays { position: absolute; width: min(90vw, 45rem); aspect-ratio: 1; left: 50%; top: 55%; transform: translate(-50%,-50%); border-radius: 50%; background: repeating-conic-gradient(color-mix(in oklab, var(--panel-color) 32%, transparent) 0 8deg, transparent 8deg 19deg); mask-image: radial-gradient(circle, transparent 0 20%, var(--foreground) 22% 55%, transparent 73%); }
+.gallery__image { position: absolute; z-index: 1; bottom: 8%; left: 50%; translate: -50% 0; width: min(62vw, 36rem); height: 68%; object-fit: contain; filter: drop-shadow(0 1rem 2rem color-mix(in oklab, var(--background) 70%, transparent)); }
+.gallery__copy { position: absolute; left: max(2rem, calc((100vw - 68rem) / 2)); bottom: 9%; z-index: 2; text-shadow: 0 3px 15px var(--background); }
+.gallery__copy span { color: var(--primary); font-size: .75rem; font-weight: 900; }
+.gallery__copy h3 { font-size: clamp(3.5rem, 10vw, 8rem); line-height: .9; font-weight: 950; text-transform: uppercase; }
+.gallery__copy p { margin-top: .6rem; font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+.gallery__progress { position: absolute; z-index: 3; bottom: 1.5rem; left: 1.25rem; right: 1.25rem; height: 3px; background: color-mix(in oklab, var(--foreground) 20%, transparent); }
+.gallery__progress span { display: block; width: 100%; height: 100%; transform-origin: left; background: var(--primary); }
+@media (max-width:767px) {
+  .gallery__header { top: 2rem; }
+  .gallery__header h2 { font-size: 2.3rem; }
+  .gallery__image { width: 95vw; height: 58%; bottom: 15%; }
+  .gallery__copy { left: 1.25rem; bottom: 8%; }
+  .gallery__copy h3 { font-size: clamp(3.5rem, 17vw, 5rem); }
+  .gallery__copy p { font-size: .65rem; }
+  .gallery__rays { top: 53%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery { height: auto; }
+  .gallery__sticky { position: relative; height: auto; overflow: visible; }
+  .gallery__header { position: relative; padding-block: 2rem; }
+  .gallery__track { width: 100%; height: auto; display: grid; transform: none !important; will-change: auto; }
+  .gallery__panel { width: 100%; height: 30rem; }
+  .gallery__image { height: 70%; }
+  .gallery__progress { display: none; }
+  .gallery-word { opacity: 1 !important; transform: none !important; }
+  .gallery__copy { transform: none !important; }
+}
