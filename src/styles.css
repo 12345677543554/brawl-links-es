@@ -512,7 +512,7 @@
 @keyframes cine-in{from{opacity:0;filter:blur(14px);transform:translateY(28px) scale(.98)}to{opacity:1;filter:blur(0);transform:none}}
 @keyframes cine-bg{to{transform:translateY(25%) scale(1.18);filter:blur(4px) saturate(1.3)}}
 @keyframes cine-fill{from{background-size:0% 100%}to{background-size:100% 100%}}
-@keyframes cine-rise{from{opacity:0;transform:translateY(80px) scale(.96);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes cine-rise{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:none}}
 @keyframes cine-card{from{opacity:.2;transform:perspective(1000px) rotateY(-12deg) translateZ(-80px)}to{opacity:1;transform:none}}
 
 .section-heading h2,.brawl-intro h2{font-size:clamp(2.4rem,6vw,5rem);line-height:.98;letter-spacing:-.035em}
