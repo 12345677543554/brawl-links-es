@@ -635,3 +635,30 @@
   .gallery-word { opacity: 1 !important; transform: none !important; }
   .gallery__copy { transform: none !important; }
 }
+
+/* Big arcade "Jugar a Brawl Stars" button. */
+.brawl-play-wrap { display: flex; flex-direction: column; align-items: center; gap: .45rem; margin-top: 1.5rem; }
+.brawl-play-wrap small { font-size: .65rem; font-weight: 700; color: var(--muted-foreground); text-align: center; }
+.btn-brawl-play {
+  position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: .7rem;
+  width: 100%; max-width: 26rem; min-height: 3.7rem; padding: .9rem 1.6rem;
+  border: 3px solid oklch(.2 .05 275); border-radius: 1.1rem; cursor: pointer;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 82%, white), var(--primary));
+  color: var(--primary-foreground); font-size: 1rem; font-weight: 950; letter-spacing: .07em; text-transform: uppercase;
+  box-shadow: 0 6px 0 color-mix(in oklab, var(--primary) 50%, var(--background)), 0 14px 28px color-mix(in oklab, var(--primary) 32%, transparent);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn-brawl-play:hover { transform: translateY(-2px); box-shadow: 0 8px 0 color-mix(in oklab, var(--primary) 50%, var(--background)), 0 18px 34px color-mix(in oklab, var(--primary) 45%, transparent); }
+.btn-brawl-play:active { transform: translateY(3px); box-shadow: 0 2px 0 color-mix(in oklab, var(--primary) 50%, var(--background)), 0 6px 14px color-mix(in oklab, var(--primary) 25%, transparent); }
+.btn-brawl-play:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.btn-brawl-play__icon { font-size: 1.35rem; line-height: 1; }
+.btn-brawl-play::after {
+  content: ""; position: absolute; top: -40%; bottom: -40%; left: -35%; width: 34%;
+  transform: skewX(-22deg); background: linear-gradient(90deg, transparent, oklch(1 0 0 / .55), transparent);
+  animation: brawl-shine 3.4s ease-in-out infinite; pointer-events: none;
+}
+@keyframes brawl-shine { 0%, 55% { left: -35%; } 85%, 100% { left: 125%; } }
+@media (prefers-reduced-motion: reduce) {
+  .btn-brawl-play::after { display: none; }
+  .btn-brawl-play, .btn-brawl-play:hover, .btn-brawl-play:active { transition: none; transform: none; }
+}

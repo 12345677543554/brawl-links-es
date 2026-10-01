@@ -59,6 +59,27 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+// Enlaces del juego: deep link a la app instalada y página oficial como respaldo.
+const BRAWL_DEEP_LINK = "brawlstars://";
+const BRAWL_OFFICIAL_PAGE = "https://supercell.com/en/games/brawlstars/";
+
+function openBrawlStars() {
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  if (!isMobile) {
+    window.open(BRAWL_OFFICIAL_PAGE, "_blank", "noopener,noreferrer");
+    return;
+  }
+  let leftThePage = false;
+  const onHide = () => { if (document.visibilityState === "hidden") leftThePage = true; };
+  document.addEventListener("visibilitychange", onHide);
+  const started = Date.now();
+  window.location.href = BRAWL_DEEP_LINK;
+  window.setTimeout(() => {
+    document.removeEventListener("visibilitychange", onHide);
+    if (!leftThePage && Date.now() - started < 2500) window.location.href = BRAWL_OFFICIAL_PAGE;
+  }, 1800);
+}
+
 function TikTokIcon({ className = "" }: { className?: string }) {
   return <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-3.9-4.3H9.6v12.4a2.9 2.9 0 1 1-2.1-2.8V7.9a6 6 0 1 0 5.2 6V9.3a7.8 7.8 0 0 0 4.5 1.4V7.6a4.8 4.8 0 0 1-.6-1.8z" /></svg>;
 }
