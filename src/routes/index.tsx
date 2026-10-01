@@ -59,25 +59,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// Abre directamente la app de Brawl Stars (sin redirigir a ninguna web).
-const BRAWL_DEEP_LINK = "brawlstars://";
-const BRAWL_UNIVERSAL_LINK = "https://link.brawlstars.com/";
-
-function openBrawlStars() {
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  if (isAndroid) {
-    // Intent de Android: abre la app instalada directamente.
-    window.location.href = "intent://#Intent;scheme=brawlstars;package=com.supercell.brawlstars;end";
-    return;
-  }
-  if (isIOS) {
-    window.location.href = BRAWL_DEEP_LINK;
-    window.setTimeout(() => { window.location.href = BRAWL_UNIVERSAL_LINK; }, 1200);
-    return;
-  }
-  window.location.href = BRAWL_DEEP_LINK;
-}
 
 
 function TikTokIcon({ className = "" }: { className?: string }) {
@@ -258,13 +239,6 @@ function Index() {
             <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="action-primary"><Youtube /> Ver YouTube</a>
             <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="action-secondary"><TikTokIcon /> @izan29096</a>
           </div>
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .16 }} className="brawl-play-wrap">
-            <button type="button" onClick={openBrawlStars} className="btn-brawl-play">
-              <span className="btn-brawl-play__icon" aria-hidden="true">🎮</span>
-              Jugar a Brawl Stars
-            </button>
-            <small>Abre tu juego de Brawl Stars en el móvil</small>
-          </motion.div>
         </motion.div>
       </div>
       <div className="hero-strip"><span><Trophy /> BRAWLERS</span><span><Play /> VÍDEOS</span><span><Sparkles /> JUGADAS</span></div>
