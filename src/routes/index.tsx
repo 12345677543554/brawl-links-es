@@ -263,7 +263,7 @@ function Index() {
               <span className="btn-brawl-play__icon" aria-hidden="true">🎮</span>
               Jugar a Brawl Stars
             </button>
-            <small>Abre la app si la tienes instalada o la web oficial del juego</small>
+            <small>Abre tu juego de Brawl Stars en el móvil</small>
           </motion.div>
         </motion.div>
       </div>
