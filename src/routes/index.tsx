@@ -59,26 +59,26 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// Enlaces del juego: deep link a la app instalada y página oficial como respaldo.
+// Abre directamente la app de Brawl Stars (sin redirigir a ninguna web).
 const BRAWL_DEEP_LINK = "brawlstars://";
-const BRAWL_OFFICIAL_PAGE = "https://supercell.com/en/games/brawlstars/";
+const BRAWL_UNIVERSAL_LINK = "https://link.brawlstars.com/";
 
 function openBrawlStars() {
-  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-  if (!isMobile) {
-    window.open(BRAWL_OFFICIAL_PAGE, "_blank", "noopener,noreferrer");
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  if (isAndroid) {
+    // Intent de Android: abre la app instalada directamente.
+    window.location.href = "intent://#Intent;scheme=brawlstars;package=com.supercell.brawlstars;end";
     return;
   }
-  let leftThePage = false;
-  const onHide = () => { if (document.visibilityState === "hidden") leftThePage = true; };
-  document.addEventListener("visibilitychange", onHide);
-  const started = Date.now();
+  if (isIOS) {
+    window.location.href = BRAWL_DEEP_LINK;
+    window.setTimeout(() => { window.location.href = BRAWL_UNIVERSAL_LINK; }, 1200);
+    return;
+  }
   window.location.href = BRAWL_DEEP_LINK;
-  window.setTimeout(() => {
-    document.removeEventListener("visibilitychange", onHide);
-    if (!leftThePage && Date.now() - started < 2500) window.location.href = BRAWL_OFFICIAL_PAGE;
-  }, 1800);
 }
+
 
 function TikTokIcon({ className = "" }: { className?: string }) {
   return <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-3.9-4.3H9.6v12.4a2.9 2.9 0 1 1-2.1-2.8V7.9a6 6 0 1 0 5.2 6V9.3a7.8 7.8 0 0 0 4.5 1.4V7.6a4.8 4.8 0 0 1-.6-1.8z" /></svg>;
