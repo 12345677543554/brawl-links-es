@@ -237,6 +237,13 @@ function Index() {
             <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="action-primary"><Youtube /> Ver YouTube</a>
             <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="action-secondary"><TikTokIcon /> @izan29096</a>
           </div>
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .16 }} className="brawl-play-wrap">
+            <button type="button" onClick={openBrawlStars} className="btn-brawl-play">
+              <span className="btn-brawl-play__icon" aria-hidden="true">🎮</span>
+              Jugar a Brawl Stars
+            </button>
+            <small>Abre la app si la tienes instalada o la web oficial del juego</small>
+          </motion.div>
         </motion.div>
       </div>
       <div className="hero-strip"><span><Trophy /> BRAWLERS</span><span><Play /> VÍDEOS</span><span><Sparkles /> JUGADAS</span></div>
