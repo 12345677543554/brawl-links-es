@@ -80,46 +80,6 @@ function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: stri
   return <div className="section-heading"><p className="section-kicker">{eyebrow}</p><h2>{title}</h2><p>{copy}</p></div>;
 }
 
-function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITES)[number]; index: number; progress: MotionValue<number> }) {
-  const sceneRanges = [
-    { visibility: [0, .25, .32], opacity: [1, 1, 0], growth: [0, .28] },
-    { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
-    { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
-  ];
-  const range = sceneRanges[index] ?? sceneRanges[0]!;
-  const opacity = useTransform(progress, range.visibility, range.opacity);
-  const imageY = useTransform(progress, range.growth, [100, -18]);
-  const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
-  const gadgetY = useTransform(progress, range.growth, [-22, 0]);
-  const gadgetScale = useTransform(progress, range.growth, [.78, 1.04]);
-
-  return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1} favorite-scene__layer--${brawler.position}`} style={{ opacity }}>
-    <div className="favorite-scene__rays" />
-    <motion.div className="favorite-scene__gadgets" style={{ y: gadgetY, scale: gadgetScale }}>
-      <span className="favorite-scene__gadgets-label">Gadgets</span>
-      <div>{brawler.gadgets.map((gadget) => <figure key={gadget.name}><img src={gadget.image} alt="" /><figcaption>{gadget.name}</figcaption></figure>)}</div>
-    </motion.div>
-    <div className="favorite-scene__copy"><span>{brawler.label} / 03</span><h4>{brawler.name}</h4><p>Brawler favorito de GAMETUIN</p></div>
-    <motion.img className="favorite-scene__brawler" src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} style={{ y: imageY, scale: imageScale }} />
-  </motion.article>;
-}
-
-function ScrollFavorites() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
-  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  return <div ref={sectionRef} className="favorite-scroll">
-    <div className="favorite-scroll__sticky">
-      <div className="favorite-scroll__progress" aria-hidden="true"><motion.span style={{ scaleX: progressScale }} /></div>
-      <div className="favorite-scroll__steps" aria-label="Nori, León y Cordelius son los brawlers favoritos de GAMETUIN">
-        {FAVORITES.map((brawler, index) => <FavoriteLayer key={brawler.name} brawler={brawler} index={index} progress={scrollYProgress} />)}
-      </div>
-      <span className="favorite-scroll__hint">DESLIZA PARA DESCUBRIRLOS</span>
-    </div>
-  </div>;
-}
-
 const UNIVERSE_ORBS = [
   { img: nori.url, x: -300, y: -150 }, { img: cordelius.url, x: 300, y: -120 },
   { img: noriGadget1.url, x: -340, y: 120 }, { img: leonGadget1.url, x: 330, y: 150 },
