@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, type CSSProperties } from "react";
-import { ArrowUpRight, CalendarDays, Check, ChevronRight, Flame, Gamepad2, Globe, Moon, Orbit, Play, Rocket, Sparkles, Sun, Trophy, Youtube, Zap } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
 import nori from "@/assets/brawl/nori-official.png.asset.json";
@@ -14,6 +14,13 @@ import leonGadget2 from "@/assets/brawl/leon-gadget-2.png.asset.json";
 import cordeliusGadget1 from "@/assets/brawl/cordelius-gadget-1.png.asset.json";
 import cordeliusGadget2 from "@/assets/brawl/cordelius-gadget-2.png.asset.json";
 import directoPortada from "@/assets/directo-portada.jpeg.asset.json";
+import fame0 from "@/assets/brawl/fame-0.png.asset.json";
+import fame1 from "@/assets/brawl/fame-1.png.asset.json";
+import fame2 from "@/assets/brawl/fame-2.png.asset.json";
+import fame3 from "@/assets/brawl/fame-3.png.asset.json";
+import fame4 from "@/assets/brawl/fame-4.png.asset.json";
+import fame5 from "@/assets/brawl/fame-5.png.asset.json";
+import fame6 from "@/assets/brawl/fame-6.png.asset.json";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -71,46 +78,6 @@ function Decor() {
 
 function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return <div className="section-heading"><p className="section-kicker">{eyebrow}</p><h2>{title}</h2><p>{copy}</p></div>;
-}
-
-function FavoriteLayer({ brawler, index, progress }: { brawler: (typeof FAVORITES)[number]; index: number; progress: MotionValue<number> }) {
-  const sceneRanges = [
-    { visibility: [0, .25, .32], opacity: [1, 1, 0], growth: [0, .28] },
-    { visibility: [.28, .38, .62, .69], opacity: [0, 1, 1, 0], growth: [.28, .66] },
-    { visibility: [.64, .76, 1], opacity: [0, 1, 1], growth: [.64, 1] },
-  ];
-  const range = sceneRanges[index] ?? sceneRanges[0]!;
-  const opacity = useTransform(progress, range.visibility, range.opacity);
-  const imageY = useTransform(progress, range.growth, [100, -18]);
-  const imageScale = useTransform(progress, range.growth, [.48, 1.18]);
-  const gadgetY = useTransform(progress, range.growth, [-22, 0]);
-  const gadgetScale = useTransform(progress, range.growth, [.78, 1.04]);
-
-  return <motion.article className={`favorite-scene__layer favorite-scene__layer--${index + 1} favorite-scene__layer--${brawler.position}`} style={{ opacity }}>
-    <div className="favorite-scene__rays" />
-    <motion.div className="favorite-scene__gadgets" style={{ y: gadgetY, scale: gadgetScale }}>
-      <span className="favorite-scene__gadgets-label">Gadgets</span>
-      <div>{brawler.gadgets.map((gadget) => <figure key={gadget.name}><img src={gadget.image} alt="" /><figcaption>{gadget.name}</figcaption></figure>)}</div>
-    </motion.div>
-    <div className="favorite-scene__copy"><span>{brawler.label} / 03</span><h4>{brawler.name}</h4><p>Brawler favorito de GAMETUIN</p></div>
-    <motion.img className="favorite-scene__brawler" src={brawler.image} alt={`${brawler.name}, brawler favorito de GAMETUIN`} style={{ y: imageY, scale: imageScale }} />
-  </motion.article>;
-}
-
-function ScrollFavorites() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
-  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  return <div ref={sectionRef} className="favorite-scroll">
-    <div className="favorite-scroll__sticky">
-      <div className="favorite-scroll__progress" aria-hidden="true"><motion.span style={{ scaleX: progressScale }} /></div>
-      <div className="favorite-scroll__steps" aria-label="Nori, León y Cordelius son los brawlers favoritos de GAMETUIN">
-        {FAVORITES.map((brawler, index) => <FavoriteLayer key={brawler.name} brawler={brawler} index={index} progress={scrollYProgress} />)}
-      </div>
-      <span className="favorite-scroll__hint">DESLIZA PARA DESCUBRIRLOS</span>
-    </div>
-  </div>;
 }
 
 const UNIVERSE_ORBS = [
@@ -203,13 +170,13 @@ function GalleryPanel({ brawler, index, progress }: { brawler: (typeof FAVORITES
 
 // Datos del sistema de Fama (verificados con guías actualizadas del juego).
 const FAMA_TIERS = [
-  { name: "Fama Mundial", icon: Globe, color: "#4da3ff", copy: "La primera escala de Fama: el punto de partida de tu progreso global en el juego." },
-  { name: "Fama Lunar", icon: Moon, color: "#b7c5ff", copy: "Inspirada en la Luna, con tonos plateados y azules nocturnos." },
-  { name: "Fama Marciana", icon: Flame, color: "#ff7a4d", copy: "El planeta rojo: tonos carmesí y cobrizos para veteranos." },
-  { name: "Fama Saturniana", icon: Orbit, color: "#4de0c4", copy: "Anillos planetarios en tonos turquesa y verde azulado." },
-  { name: "Fama Solar", icon: Sun, color: "#ffc93d", copy: "Resplandor dorado ardiente y pura energía solar." },
-  { name: "Fama Meteórica", icon: Zap, color: "#b98cff", copy: "Púrpura cósmico y destellos de meteorito. Muy exclusiva." },
-  { name: "Fama Alienígena", icon: Rocket, color: "#7dffb2", copy: "El rango más alto y exclusivo: solo para los más dedicados." },
+  { name: "Fama Mundial", image: fame0.url, color: "#4da3ff", copy: "La primera escala de Fama: el punto de partida de tu progreso global en el juego." },
+  { name: "Fama Lunar", image: fame1.url, color: "#b7c5ff", copy: "Inspirada en la Luna, con tonos plateados y azules nocturnos." },
+  { name: "Fama Marciana", image: fame2.url, color: "#ff7a4d", copy: "El planeta rojo: tonos carmesí y cobrizos para veteranos." },
+  { name: "Fama Saturniana", image: fame3.url, color: "#4de0c4", copy: "Anillos planetarios en tonos turquesa y verde azulado." },
+  { name: "Fama Solar", image: fame4.url, color: "#ffc93d", copy: "Resplandor dorado ardiente y pura energía solar." },
+  { name: "Fama Meteórica", image: fame5.url, color: "#b98cff", copy: "Púrpura cósmico y destellos de meteorito. Muy exclusiva." },
+  { name: "Fama Alienígena", image: fame6.url, color: "#7dffb2", copy: "El rango más alto y exclusivo: solo para los más dedicados." },
 ];
 
 const FAMA_REWARDS = [
@@ -239,7 +206,7 @@ function FamaSection() {
       </div>
       <div className="fama-grid">
         {FAMA_TIERS.map((tier) => <article key={tier.name} className="fama-card" style={{ "--fama-color": tier.color } as CSSProperties}>
-          <span className="fama-card__icon"><tier.icon /></span>
+          <span className="fama-card__icon"><img src={tier.image} alt={`Icono oficial de ${tier.name}`} loading="lazy" /></span>
           <h3>{tier.name}</h3>
           <p>{tier.copy}</p>
           <span className="fama-card__levels">3 niveles · I · II · III</span>
@@ -325,8 +292,6 @@ function Index() {
       <div className="section-inner">
         <div className="brawl-intro"><div><p className="section-kicker">Zona de combate</p><h2>Mi contenido de <span>Brawl Stars</span></h2><p>Partidas, consejos, retos, novedades y jugadas con mis brawlers favoritos.</p></div><div className="content-tags"><span>Gameplays</span><span>Consejos</span><span>Retos</span><span>Novedades</span></div></div>
         <div className="stats-row">{CREATOR_STATS.map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
-        <div className="favorites-title"><div><p className="section-kicker">Mi equipo</p><h3>Brawlers favoritos</h3></div><span>Imágenes auténticas del juego</span></div>
-        <ScrollFavorites />
         <div className="featured-callout"><span className="featured-callout__icon"><Play /></span><div><p className="section-kicker">Vídeos destacados</p><h3>Las mejores partidas estarán aquí</h3><p>Añade tus enlaces reales para convertir esta zona en tu escaparate de contenido.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Ver canal <ArrowUpRight /></a></div>
       </div>
     </section>
