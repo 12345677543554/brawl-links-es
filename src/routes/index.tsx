@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { ArrowUpRight, CalendarDays, Check, ChevronRight, Flame, Gamepad2, Globe, Moon, Orbit, Play, Rocket, Sparkles, Sun, Trophy, Youtube, Zap } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
@@ -238,7 +238,7 @@ function FamaSection() {
         </article>
       </div>
       <div className="fama-grid">
-        {FAMA_TIERS.map((tier) => <article key={tier.name} className="fama-card" style={{ "--fama-color": tier.color } as React.CSSProperties}>
+        {FAMA_TIERS.map((tier) => <article key={tier.name} className="fama-card" style={{ "--fama-color": tier.color } as CSSProperties}>
           <span className="fama-card__icon"><tier.icon /></span>
           <h3>{tier.name}</h3>
           <p>{tier.copy}</p>
@@ -255,7 +255,7 @@ function FamaSection() {
 function useScrollFallback() {
   useEffect(() => {
     if (CSS.supports("animation-timeline: view()") || !("IntersectionObserver" in window)) return;
-    const els = document.querySelectorAll(".section-heading, .platform-card, .brawl-intro, .stats-row > div, .featured-callout, .favorites-title, .site-footer__inner");
+    const els = document.querySelectorAll(".section-heading, .platform-card, .brawl-intro, .stats-row > div, .featured-callout, .favorites-title, .fama-info, .fama-card, .fama-reward, .site-footer__inner");
     const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle("sd-in", e.isIntersecting)), { threshold: .15 });
     els.forEach((el) => { el.classList.add("sd-io"); io.observe(el); });
     return () => io.disconnect();
