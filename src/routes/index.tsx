@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, type CSSProperties } from "react";
-import { ArrowUpRight, CalendarDays, Check, ChevronRight, Flame, Gamepad2, Globe, Moon, Orbit, Play, Rocket, Sparkles, Sun, Trophy, Youtube, Zap } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
 import nori from "@/assets/brawl/nori-official.png.asset.json";
