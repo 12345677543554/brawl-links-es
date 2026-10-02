@@ -14,6 +14,13 @@ import leonGadget2 from "@/assets/brawl/leon-gadget-2.png.asset.json";
 import cordeliusGadget1 from "@/assets/brawl/cordelius-gadget-1.png.asset.json";
 import cordeliusGadget2 from "@/assets/brawl/cordelius-gadget-2.png.asset.json";
 import directoPortada from "@/assets/directo-portada.jpeg.asset.json";
+import fame0 from "@/assets/brawl/fame-0.png.asset.json";
+import fame1 from "@/assets/brawl/fame-1.png.asset.json";
+import fame2 from "@/assets/brawl/fame-2.png.asset.json";
+import fame3 from "@/assets/brawl/fame-3.png.asset.json";
+import fame4 from "@/assets/brawl/fame-4.png.asset.json";
+import fame5 from "@/assets/brawl/fame-5.png.asset.json";
+import fame6 from "@/assets/brawl/fame-6.png.asset.json";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -203,13 +210,13 @@ function GalleryPanel({ brawler, index, progress }: { brawler: (typeof FAVORITES
 
 // Datos del sistema de Fama (verificados con guías actualizadas del juego).
 const FAMA_TIERS = [
-  { name: "Fama Mundial", icon: Globe, color: "#4da3ff", copy: "La primera escala de Fama: el punto de partida de tu progreso global en el juego." },
-  { name: "Fama Lunar", icon: Moon, color: "#b7c5ff", copy: "Inspirada en la Luna, con tonos plateados y azules nocturnos." },
-  { name: "Fama Marciana", icon: Flame, color: "#ff7a4d", copy: "El planeta rojo: tonos carmesí y cobrizos para veteranos." },
-  { name: "Fama Saturniana", icon: Orbit, color: "#4de0c4", copy: "Anillos planetarios en tonos turquesa y verde azulado." },
-  { name: "Fama Solar", icon: Sun, color: "#ffc93d", copy: "Resplandor dorado ardiente y pura energía solar." },
-  { name: "Fama Meteórica", icon: Zap, color: "#b98cff", copy: "Púrpura cósmico y destellos de meteorito. Muy exclusiva." },
-  { name: "Fama Alienígena", icon: Rocket, color: "#7dffb2", copy: "El rango más alto y exclusivo: solo para los más dedicados." },
+  { name: "Fama Mundial", image: fame0.url, color: "#4da3ff", copy: "La primera escala de Fama: el punto de partida de tu progreso global en el juego." },
+  { name: "Fama Lunar", image: fame1.url, color: "#b7c5ff", copy: "Inspirada en la Luna, con tonos plateados y azules nocturnos." },
+  { name: "Fama Marciana", image: fame2.url, color: "#ff7a4d", copy: "El planeta rojo: tonos carmesí y cobrizos para veteranos." },
+  { name: "Fama Saturniana", image: fame3.url, color: "#4de0c4", copy: "Anillos planetarios en tonos turquesa y verde azulado." },
+  { name: "Fama Solar", image: fame4.url, color: "#ffc93d", copy: "Resplandor dorado ardiente y pura energía solar." },
+  { name: "Fama Meteórica", image: fame5.url, color: "#b98cff", copy: "Púrpura cósmico y destellos de meteorito. Muy exclusiva." },
+  { name: "Fama Alienígena", image: fame6.url, color: "#7dffb2", copy: "El rango más alto y exclusivo: solo para los más dedicados." },
 ];
 
 const FAMA_REWARDS = [
@@ -239,7 +246,7 @@ function FamaSection() {
       </div>
       <div className="fama-grid">
         {FAMA_TIERS.map((tier) => <article key={tier.name} className="fama-card" style={{ "--fama-color": tier.color } as CSSProperties}>
-          <span className="fama-card__icon"><tier.icon /></span>
+          <span className="fama-card__icon"><img src={tier.image} alt={`Icono oficial de ${tier.name}`} loading="lazy" /></span>
           <h3>{tier.name}</h3>
           <p>{tier.copy}</p>
           <span className="fama-card__levels">3 niveles · I · II · III</span>
@@ -325,8 +332,6 @@ function Index() {
       <div className="section-inner">
         <div className="brawl-intro"><div><p className="section-kicker">Zona de combate</p><h2>Mi contenido de <span>Brawl Stars</span></h2><p>Partidas, consejos, retos, novedades y jugadas con mis brawlers favoritos.</p></div><div className="content-tags"><span>Gameplays</span><span>Consejos</span><span>Retos</span><span>Novedades</span></div></div>
         <div className="stats-row">{CREATOR_STATS.map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
-        <div className="favorites-title"><div><p className="section-kicker">Mi equipo</p><h3>Brawlers favoritos</h3></div><span>Imágenes auténticas del juego</span></div>
-        <ScrollFavorites />
         <div className="featured-callout"><span className="featured-callout__icon"><Play /></span><div><p className="section-kicker">Vídeos destacados</p><h3>Las mejores partidas estarán aquí</h3><p>Añade tus enlaces reales para convertir esta zona en tu escaparate de contenido.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Ver canal <ArrowUpRight /></a></div>
       </div>
     </section>
