@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useEffect, useRef } from "react";
-import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
+import { useEffect, useRef, type CSSProperties } from "react";
+import { ArrowUpRight, CalendarDays, Check, ChevronRight, Flame, Gamepad2, Globe, Moon, Orbit, Play, Rocket, Sparkles, Sun, Trophy, Youtube, Zap } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
 import nori from "@/assets/brawl/nori-official.png.asset.json";
@@ -201,10 +201,61 @@ function GalleryPanel({ brawler, index, progress }: { brawler: (typeof FAVORITES
   </article>;
 }
 
+// Datos del sistema de Fama (verificados con guías actualizadas del juego).
+const FAMA_TIERS = [
+  { name: "Fama Mundial", icon: Globe, color: "#4da3ff", copy: "La primera escala de Fama: el punto de partida de tu progreso global en el juego." },
+  { name: "Fama Lunar", icon: Moon, color: "#b7c5ff", copy: "Inspirada en la Luna, con tonos plateados y azules nocturnos." },
+  { name: "Fama Marciana", icon: Flame, color: "#ff7a4d", copy: "El planeta rojo: tonos carmesí y cobrizos para veteranos." },
+  { name: "Fama Saturniana", icon: Orbit, color: "#4de0c4", copy: "Anillos planetarios en tonos turquesa y verde azulado." },
+  { name: "Fama Solar", icon: Sun, color: "#ffc93d", copy: "Resplandor dorado ardiente y pura energía solar." },
+  { name: "Fama Meteórica", icon: Zap, color: "#b98cff", copy: "Púrpura cósmico y destellos de meteorito. Muy exclusiva." },
+  { name: "Fama Alienígena", icon: Rocket, color: "#7dffb2", copy: "El rango más alto y exclusivo: solo para los más dedicados." },
+];
+
+const FAMA_REWARDS = [
+  { level: "Nivel I", reward: "Fondo de tarjeta de batalla" },
+  { level: "Nivel II", reward: "Icono de jugador exclusivo" },
+  { level: "Nivel III", reward: "Pin temático de esa Fama" },
+];
+
+function FamaSection() {
+  return <section id="famas" className="content-band fama-section" aria-label="Sistema de Fama de Brawl Stars">
+    <Decor />
+    <div className="section-inner">
+      <SectionHeading eyebrow="Brawl Stars" title="Sistema de Fama" copy="El máximo prestigio para quienes ya lo han desbloqueado casi todo en el juego." />
+      <div className="fama-intro">
+        <article className="fama-info">
+          <h3><Sparkles /> ¿Qué son las Famas?</h3>
+          <p>Las Famas son el sistema de progresión de Brawl Stars que te permite avanzar en diferentes categorías, conseguir recompensas y lucir tu veteranía delante de otros jugadores.</p>
+        </article>
+        <article className="fama-info">
+          <h3><Gamepad2 /> Famas Mundiales</h3>
+          <p>La Fama Mundial es la primera escala: está ligada a tu progresión global y muestra tu nivel dentro del sistema de Fama en tu perfil de jugador.</p>
+        </article>
+        <article className="fama-info">
+          <h3><Trophy /> Créditos y Fama</h3>
+          <p>Al tener todos los brawlers, los créditos que consigues (Brawl Pass, Camino de Trofeos, Premios Starr…) se invierten automáticamente en subir tu Fama. Si llega un brawler nuevo, los créditos vuelven a desbloquearlo primero y después siguen alimentando tu Fama.</p>
+        </article>
+      </div>
+      <div className="fama-grid">
+        {FAMA_TIERS.map((tier) => <article key={tier.name} className="fama-card" style={{ "--fama-color": tier.color } as CSSProperties}>
+          <span className="fama-card__icon"><tier.icon /></span>
+          <h3>{tier.name}</h3>
+          <p>{tier.copy}</p>
+          <span className="fama-card__levels">3 niveles · I · II · III</span>
+        </article>)}
+      </div>
+      <div className="fama-rewards">
+        {FAMA_REWARDS.map((item) => <div key={item.level} className="fama-reward"><b>{item.level}</b><span>{item.reward}</span></div>)}
+      </div>
+    </div>
+  </section>;
+}
+
 function useScrollFallback() {
   useEffect(() => {
     if (CSS.supports("animation-timeline: view()") || !("IntersectionObserver" in window)) return;
-    const els = document.querySelectorAll(".section-heading, .platform-card, .brawl-intro, .stats-row > div, .featured-callout, .favorites-title, .site-footer__inner");
+    const els = document.querySelectorAll(".section-heading, .platform-card, .brawl-intro, .stats-row > div, .featured-callout, .favorites-title, .fama-info, .fama-card, .fama-reward, .site-footer__inner");
     const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle("sd-in", e.isIntersecting)), { threshold: .15 });
     els.forEach((el) => { el.classList.add("sd-io"); io.observe(el); });
     return () => io.disconnect();
@@ -279,6 +330,8 @@ function Index() {
         <div className="featured-callout"><span className="featured-callout__icon"><Play /></span><div><p className="section-kicker">Vídeos destacados</p><h3>Las mejores partidas estarán aquí</h3><p>Añade tus enlaces reales para convertir esta zona en tu escaparate de contenido.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Ver canal <ArrowUpRight /></a></div>
       </div>
     </section>
+
+    <FamaSection />
 
     <footer className="site-footer"><div className="site-footer__inner"><div className="footer-brand"><span>G</span><div><b>GAMETUIN</b><small>Creador de Brawl Stars</small></div></div><div className="footer-socials"><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube /></a><a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TikTokIcon /></a></div><div className="footer-legal"><span>© 2026 GAMETUIN</span><Link to="/politica-de-privacidad">Política de privacidad</Link><Link to="/aviso-legal">Aviso legal</Link></div></div></footer>
   </main>;
