@@ -468,6 +468,19 @@
 @keyframes sd-para-mid{to{transform:translateY(140px) rotate(-60deg)}}
 @keyframes sd-hero-out{to{opacity:.15;transform:translateY(-60px) scale(.94)}}
 @keyframes sd-spin{to{transform:rotate(180deg) scale(1.2)}}
+@keyframes sd-fama-spin{from{transform:rotate(-12deg) scale(.6)}to{transform:rotate(0) scale(1)}}
+@keyframes fama-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+/* Flotación continua de los iconos de Fama, como en el juego */
+@media (prefers-reduced-motion: no-preference){
+  .fama-card__icon img{animation:fama-float 3.2s ease-in-out infinite}
+  .fama-card:nth-child(2) .fama-card__icon img{animation-delay:.3s}
+  .fama-card:nth-child(3) .fama-card__icon img{animation-delay:.6s}
+  .fama-card:nth-child(4) .fama-card__icon img{animation-delay:.9s}
+  .fama-card:nth-child(5) .fama-card__icon img{animation-delay:1.2s}
+  .fama-card:nth-child(6) .fama-card__icon img{animation-delay:1.5s}
+  .fama-card:nth-child(7) .fama-card__icon img{animation-delay:1.8s}
+}
 @keyframes sd-tilt{from{opacity:0;transform:perspective(800px) rotateX(25deg) translateY(50px)}to{opacity:1;transform:none}}
 
 @supports (animation-timeline: view()) {
