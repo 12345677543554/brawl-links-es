@@ -468,6 +468,19 @@
 @keyframes sd-para-mid{to{transform:translateY(140px) rotate(-60deg)}}
 @keyframes sd-hero-out{to{opacity:.15;transform:translateY(-60px) scale(.94)}}
 @keyframes sd-spin{to{transform:rotate(180deg) scale(1.2)}}
+@keyframes sd-fama-spin{from{transform:rotate(-12deg) scale(.6)}to{transform:rotate(0) scale(1)}}
+@keyframes fama-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+/* Flotación continua de los iconos de Fama, como en el juego */
+@media (prefers-reduced-motion: no-preference){
+  .fama-card__icon img{animation:fama-float 3.2s ease-in-out infinite}
+  .fama-card:nth-child(2) .fama-card__icon img{animation-delay:.3s}
+  .fama-card:nth-child(3) .fama-card__icon img{animation-delay:.6s}
+  .fama-card:nth-child(4) .fama-card__icon img{animation-delay:.9s}
+  .fama-card:nth-child(5) .fama-card__icon img{animation-delay:1.2s}
+  .fama-card:nth-child(6) .fama-card__icon img{animation-delay:1.5s}
+  .fama-card:nth-child(7) .fama-card__icon img{animation-delay:1.8s}
+}
 @keyframes sd-tilt{from{opacity:0;transform:perspective(800px) rotateX(25deg) translateY(50px)}to{opacity:1;transform:none}}
 
 @supports (animation-timeline: view()) {
@@ -495,6 +508,34 @@
     .featured-callout{animation:sd-tilt linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
     .featured-callout__icon{animation:sd-spin linear both;animation-timeline:view()}
     .site-footer__inner{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+
+    /* Plataformas: entran desde lados opuestos */
+    .platform-card--youtube{animation:sd-left linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .platform-card--tiktok{animation:sd-right linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .platform-icon{animation:sd-spin linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
+
+    /* Fama: tarjetas info escalonadas */
+    .fama-info{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .fama-info:nth-child(2){animation-range:entry 8% cover 42%}
+    .fama-info:nth-child(3){animation-range:entry 16% cover 48%}
+
+    /* Fama: tarjetas de rango con entrada en cascada */
+    .fama-card{animation:sd-scale linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .fama-card:nth-child(2){animation-range:entry 4% cover 38%}
+    .fama-card:nth-child(3){animation-range:entry 8% cover 41%}
+    .fama-card:nth-child(4){animation-range:entry 12% cover 44%}
+    .fama-card:nth-child(5){animation-range:entry 16% cover 47%}
+    .fama-card:nth-child(6){animation-range:entry 20% cover 50%}
+    .fama-card:nth-child(7){animation-range:entry 24% cover 53%}
+    .fama-card__icon{animation:sd-fama-spin linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+
+    /* Fama: recompensas se revelan con clip */
+    .fama-reward{animation:sd-clip linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .fama-reward:nth-child(2){animation-range:entry 8% cover 45%}
+    .fama-reward:nth-child(3){animation-range:entry 16% cover 50%}
+
+    /* Galería horizontal: cabecera con parallax suave */
+    .gallery__header{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
   }
   @media (max-width:767px) and (prefers-reduced-motion: no-preference){
      .content-tags span{animation-name:sd-up}
