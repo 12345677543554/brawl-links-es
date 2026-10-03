@@ -495,6 +495,34 @@
     .featured-callout{animation:sd-tilt linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
     .featured-callout__icon{animation:sd-spin linear both;animation-timeline:view()}
     .site-footer__inner{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+
+    /* Plataformas: entran desde lados opuestos */
+    .platform-card--youtube{animation:sd-left linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .platform-card--tiktok{animation:sd-right linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .platform-icon{animation:sd-spin linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
+
+    /* Fama: tarjetas info escalonadas */
+    .fama-info{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .fama-info:nth-child(2){animation-range:entry 8% cover 42%}
+    .fama-info:nth-child(3){animation-range:entry 16% cover 48%}
+
+    /* Fama: tarjetas de rango con entrada en cascada */
+    .fama-card{animation:sd-scale linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .fama-card:nth-child(2){animation-range:entry 4% cover 38%}
+    .fama-card:nth-child(3){animation-range:entry 8% cover 41%}
+    .fama-card:nth-child(4){animation-range:entry 12% cover 44%}
+    .fama-card:nth-child(5){animation-range:entry 16% cover 47%}
+    .fama-card:nth-child(6){animation-range:entry 20% cover 50%}
+    .fama-card:nth-child(7){animation-range:entry 24% cover 53%}
+    .fama-card__icon img{animation:sd-fama-spin linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+
+    /* Fama: recompensas se revelan con clip */
+    .fama-reward{animation:sd-clip linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .fama-reward:nth-child(2){animation-range:entry 8% cover 45%}
+    .fama-reward:nth-child(3){animation-range:entry 16% cover 50%}
+
+    /* Galería horizontal: cabecera con parallax suave */
+    .gallery__header{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
   }
   @media (max-width:767px) and (prefers-reduced-motion: no-preference){
      .content-tags span{animation-name:sd-up}
