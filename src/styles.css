@@ -527,7 +527,7 @@
     .fama-card:nth-child(5){animation-range:entry 16% cover 47%}
     .fama-card:nth-child(6){animation-range:entry 20% cover 50%}
     .fama-card:nth-child(7){animation-range:entry 24% cover 53%}
-    .fama-card__icon img{animation:sd-fama-spin linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+    .fama-card__icon{animation:sd-fama-spin linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
 
     /* Fama: recompensas se revelan con clip */
     .fama-reward{animation:sd-clip linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
