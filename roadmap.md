@@ -3,4 +3,4 @@
 - [x] Validar en ordenador y móvil, incluidos movimiento reducido y enlaces.
 
 ## Pendiente
-- Animación flotante de los iconos de Fama (como en el juego)
+- [x] Animación flotante de los iconos de Fama (como en el juego)
