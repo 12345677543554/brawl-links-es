@@ -474,7 +474,8 @@
 
 /* Flotación continua de los iconos de Fama, como en el juego */
 @media (prefers-reduced-motion: no-preference){
-  .fama-card__icon img{animation:fama-float 3.2s ease-in-out infinite}
+  .fama-card__icon{perspective:300px}
+  .fama-card__icon img{animation:fama-float 3.2s ease-in-out infinite,fama-spin 4s linear infinite;transform-style:preserve-3d;backface-visibility:visible}
   .fama-card:nth-child(2) .fama-card__icon img{animation-delay:.3s}
   .fama-card:nth-child(3) .fama-card__icon img{animation-delay:.6s}
   .fama-card:nth-child(4) .fama-card__icon img{animation-delay:.9s}
