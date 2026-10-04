@@ -206,7 +206,7 @@ function FamaSection() {
       </div>
       <div className="fama-grid">
         {FAMA_TIERS.map((tier) => <article key={tier.name} className="fama-card" style={{ "--fama-color": tier.color } as CSSProperties}>
-          <span className="fama-card__icon"><img src={tier.image} alt={`Icono oficial de ${tier.name}`} loading="lazy" /></span>
+          <span className="fama-card__icon"><span className="fama-coin">{[0, 1, 2, 3, 4, 5].map((l) => <img key={l} src={tier.image} alt={l === 5 ? `Icono oficial de ${tier.name}` : ""} aria-hidden={l === 5 ? undefined : true} loading="lazy" className="fama-coin__layer" style={{ "--l": l } as CSSProperties} />)}<span className="fama-coin__shine" aria-hidden="true" /></span></span>
           <h3>{tier.name}</h3>
           <p>{tier.copy}</p>
           <span className="fama-card__levels">3 niveles · I · II · III</span>
