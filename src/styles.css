@@ -474,14 +474,14 @@
 
 /* Flotación continua de los iconos de Fama, como en el juego */
 @media (prefers-reduced-motion: no-preference){
-  .fama-card__icon{perspective:300px}
-  .fama-card__icon img{animation:fama-float 3.2s ease-in-out infinite,fama-spin 4s linear infinite;transform-style:preserve-3d;backface-visibility:visible}
-  .fama-card:nth-child(2) .fama-card__icon img{animation-delay:.3s}
-  .fama-card:nth-child(3) .fama-card__icon img{animation-delay:.6s}
-  .fama-card:nth-child(4) .fama-card__icon img{animation-delay:.9s}
-  .fama-card:nth-child(5) .fama-card__icon img{animation-delay:1.2s}
-  .fama-card:nth-child(6) .fama-card__icon img{animation-delay:1.5s}
-  .fama-card:nth-child(7) .fama-card__icon img{animation-delay:1.8s}
+  .fama-coin{animation:fama-float3d 3.2s ease-in-out infinite,fama-spin 4s linear infinite}
+  .fama-card:nth-child(2) .fama-coin{animation-delay:.3s}
+  .fama-card:nth-child(3) .fama-coin{animation-delay:.6s}
+  .fama-card:nth-child(4) .fama-coin{animation-delay:.9s}
+  .fama-card:nth-child(5) .fama-coin{animation-delay:1.2s}
+  .fama-card:nth-child(6) .fama-coin{animation-delay:1.5s}
+  .fama-card:nth-child(7) .fama-coin{animation-delay:1.8s}
+  .fama-coin__shine{animation:fama-shine 4s linear infinite}
 }
 @keyframes sd-tilt{from{opacity:0;transform:perspective(800px) rotateX(25deg) translateY(50px)}to{opacity:1;transform:none}}
 
@@ -691,8 +691,16 @@
 .fama-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-top: 1.5rem; }
 .fama-card { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 1rem; background: var(--card); padding: 1.3rem; transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
 .fama-card:hover { transform: translateY(-6px); border-color: var(--fama-color, var(--primary)); box-shadow: 0 14px 32px -14px color-mix(in oklab, var(--fama-color, var(--primary)) 55%, transparent); }
-.fama-card__icon { display: grid; place-items: center; width: 4.2rem; height: 4.2rem; border-radius: 1rem; background: color-mix(in oklab, var(--fama-color, var(--primary)) 18%, transparent); border: 1px solid color-mix(in oklab, var(--fama-color, var(--primary)) 45%, transparent); box-shadow: 0 0 22px -6px var(--fama-color, var(--primary)); }
-.fama-card__icon img { width: 3.4rem; height: 3.4rem; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .45)); }
+.fama-card__icon { display: grid; place-items: center; width: 4.2rem; height: 4.2rem; border-radius: 1rem; perspective: 420px; background: color-mix(in oklab, var(--fama-color, var(--primary)) 18%, transparent); border: 1px solid color-mix(in oklab, var(--fama-color, var(--primary)) 45%, transparent); box-shadow: 0 0 22px -6px var(--fama-color, var(--primary)); }
+.fama-coin { position: relative; display: block; width: 3.4rem; height: 3.4rem; transform-style: preserve-3d; transform: rotateY(-25deg) rotateX(8deg); }
+.fama-coin__layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transform: translateZ(calc((var(--l) - 2.5) * 1.3px)); filter: brightness(calc(.45 + var(--l) * .08)) saturate(1.1); backface-visibility: visible; }
+.fama-coin__layer:last-of-type { filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .45)); }
+.fama-coin__shine { position: absolute; inset: 0; transform: translateZ(4px); pointer-events: none; background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%) 0 0 / 250% 100% no-repeat; border-radius: 50%; mix-blend-mode: screen; opacity: .8; }
+.fama-card:nth-child(n+5) .fama-coin__layer { filter: brightness(calc(.85 + var(--l) * .1)) saturate(1.35); }
+.fama-card:nth-child(n+5) .fama-coin__layer:last-of-type { filter: brightness(1.45) saturate(1.4) drop-shadow(0 0 10px var(--fama-color)) drop-shadow(0 0 4px #fff8); }
+.fama-card:nth-child(n+5) .fama-card__icon { background: color-mix(in oklab, var(--fama-color) 32%, transparent); box-shadow: 0 0 34px -4px var(--fama-color), inset 0 0 18px -6px var(--fama-color); }
+@keyframes fama-float3d { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+@keyframes fama-shine { 0%,40% { background-position: 150% 0; } 60%,100% { background-position: -50% 0; } }
 .fama-card h3 { margin-top: .9rem; font-size: 1.02rem; font-weight: 900; color: var(--foreground); }
 .fama-card p { margin-top: .35rem; color: var(--muted-foreground); font-size: .85rem; line-height: 1.6; }
 .fama-card__levels { display: inline-flex; margin-top: .9rem; border: 1px solid var(--border); border-radius: 999px; padding: .28rem .75rem; color: var(--fama-color, var(--primary)); font-size: .68rem; font-weight: 950; letter-spacing: .06em; text-transform: uppercase; }
