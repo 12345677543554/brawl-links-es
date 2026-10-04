@@ -129,6 +129,22 @@ function BrawlUniverse() {
   </section>;
 }
 
+function HeroLetter({ ch, i, n, p }: { ch: string; i: number; n: number; p: MotionValue<number> }) {
+  const off = i - (n - 1) / 2;
+  const y = useTransform(p, [0, .7], [0, (i % 2 ? -1 : 1) * 90]);
+  const x = useTransform(p, [0, .7], [0, off * 34]);
+  const rotate = useTransform(p, [0, .7], [0, off * 9]);
+  const scale = useTransform(p, [0, .7], [1, 1 + (i % 3) * .25]);
+  const opacity = useTransform(p, [.25 + i * .03, .75], [1, 0]);
+  return <motion.span aria-hidden="true" className="hero-letter" style={{ x, y, rotate, scale, opacity }}>{ch}</motion.span>;
+}
+
+function SectionDots() {
+  const { scrollYProgress } = useScroll();
+  const h = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  return <div className="section-rail" aria-hidden="true"><motion.span style={{ height: h }} /></div>;
+}
+
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
@@ -231,12 +247,22 @@ function useScrollFallback() {
 
 function Index() {
   useScrollFallback();
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: hp } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const texY = useTransform(hp, [0, 1], ["0%", "35%"]);
+  const texScale = useTransform(hp, [0, 1], [1, 1.35]);
+  const avatarScale = useTransform(hp, [0, .8], [1, 1.6]);
+  const avatarY = useTransform(hp, [0, .8], [0, 120]);
+  const avatarOp = useTransform(hp, [.4, .85], [1, 0]);
+  const copyY = useTransform(hp, [0, 1], [0, -80]);
+  const heroClip = useTransform(hp, [.3, 1], ["inset(0% 0% 0% 0% round 0px)", "inset(6% 4% 10% 4% round 48px)"]);
   return <main className="site-shell">
     <ScrollProgress />
+    <SectionDots />
     <div className="arena-bg" aria-hidden="true"><div className="arena-bg__stars" /><div className="arena-bg__floor" /><span className="arena-bg__shape">★</span><span className="arena-bg__shape">✦</span><span className="arena-bg__shape">◆</span></div>
     <div className="page-loader" aria-hidden="true"><div className="loader-mark"><Gamepad2 /></div></div>
-    <section className="profile-hero">
-      <div className="profile-hero__texture" style={{ backgroundImage: `url(${bgTexture})` }} />
+    <motion.section ref={heroRef} className="profile-hero" style={{ clipPath: heroClip }}>
+      <motion.div className="profile-hero__texture" style={{ backgroundImage: `url(${bgTexture})`, y: texY, scale: texScale }} />
       <Decor />
       <nav className="top-nav" aria-label="Navegación principal">
         <a href="#inicio" className="nav-brand"><span className="nav-brand__mark">G</span><b>GAMETUIN</b></a>
@@ -245,22 +271,22 @@ function Index() {
       </nav>
 
       <div id="inicio" className="profile-hero__content">
-        <motion.div initial={{ opacity: 0, scale: .88 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .55 }} className="profile-avatar-wrap">
+        <motion.div initial={{ opacity: 0, scale: .88 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .55 }} className="profile-avatar-wrap"><motion.div style={{ scale: avatarScale, y: avatarY, opacity: avatarOp }} className="profile-avatar-motion">
           <div className="profile-avatar-burst" /><img src={gametuinAvatar} alt="Avatar de GAMETUIN" className="profile-avatar" />
           <span className="online-dot" aria-label="Perfil activo" />
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, delay: .08 }} className="profile-copy">
-          <div className="profile-name"><h1>GAMETUIN</h1><span className="verified" title="Creador verificado"><Check /></span></div>
+        </motion.div></motion.div>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, delay: .08 }} className="profile-copy"><motion.div style={{ y: copyY }}>
+          <div className="profile-name"><h1 aria-label="GAMETUIN">{"GAMETUIN".split("").map((c, i) => <HeroLetter key={i} ch={c} i={i} n={8} p={hp} />)}</h1><span className="verified" title="Creador verificado"><Check /></span></div>
           <p className="profile-role"><Gamepad2 /> Creador de contenido de Brawl Stars</p>
           <p className="profile-intro">¡Bienvenido a mi zona! Aquí encontrarás todas mis redes, vídeos y contenido de Brawl Stars.</p>
           <div className="profile-actions">
             <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="action-primary"><Youtube /> Ver YouTube</a>
             <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="action-secondary"><TikTokIcon /> @izan29096</a>
           </div>
-        </motion.div>
+        </motion.div></motion.div>
       </div>
       <div className="hero-strip"><span><Trophy /> BRAWLERS</span><span><Play /> VÍDEOS</span><span><Sparkles /> JUGADAS</span></div>
-    </section>
+    </motion.section>
 
     <BrawlUniverse />
 
