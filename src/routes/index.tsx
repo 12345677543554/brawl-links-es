@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useEffect, useRef, type CSSProperties } from "react";
+import { animate, motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
@@ -21,6 +21,9 @@ import fame3 from "@/assets/brawl/fame-3.png.asset.json";
 import fame4 from "@/assets/brawl/fame-4.png.asset.json";
 import fame5 from "@/assets/brawl/fame-5.png.asset.json";
 import fame6 from "@/assets/brawl/fame-6.png.asset.json";
+import { ScrollTitle } from "@/components/ScrollTitle";
+import { StreamerStory } from "@/components/StreamerStory";
+import { GamingParticles } from "@/components/GamingParticles";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -77,7 +80,22 @@ function Decor() {
 }
 
 function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
-  return <div className="section-heading"><p className="section-kicker">{eyebrow}</p><h2>{title}</h2><p>{copy}</p></div>;
+  return <div className="section-heading"><p className="section-kicker">{eyebrow}</p><ScrollTitle text={title} /><p>{copy}</p></div>;
+}
+
+function AnimatedStat({ value, label }: { value: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: .5 });
+  const reduced = useReducedMotion();
+  const numeric = /^\d+$/.test(value);
+  const [display, setDisplay] = useState(reduced || !numeric ? value : "0");
+  useEffect(() => {
+    if (!inView || !numeric) return;
+    if (reduced) { setDisplay(value); return; }
+    const controls = animate(0, Number(value), { duration: 1.2, ease: "easeOut", onUpdate: latest => setDisplay(String(Math.round(latest))) });
+    return () => controls.stop();
+  }, [inView, numeric, reduced, value]);
+  return <div ref={ref}><strong>{display}</strong><span>{label}</span></div>;
 }
 
 const UNIVERSE_ORBS = [
@@ -103,7 +121,9 @@ function UniverseCard({ c, i, p }: { c: (typeof UNIVERSE_CARDS)[number]; i: numb
   const start = .5 + i * .04;
   const opacity = useTransform(p, [start, start + .08, .86, .95], [0, 1, 1, 0]);
   const y = useTransform(p, [start, start + .08], [50, 0]);
-  return <motion.div className="universe__card" style={{ opacity, y }}><b>{c.t}</b><span>{c.d}</span></motion.div>;
+  const scale = useTransform(p, [start, start + .12], [.87, 1]);
+  const rotate = useTransform(p, [start, start + .12], [i % 2 ? -2 : 2, 0]);
+  return <motion.div className="universe__card" style={{ opacity, y, scale, rotate }}><b>{c.t}</b><span>{c.d}</span></motion.div>;
 }
 
 function BrawlUniverse() {
@@ -117,8 +137,8 @@ function BrawlUniverse() {
   const head2Opacity = useTransform(p, [.42, .5, .88, .96], [0, 1, 1, 0]);
   return <section ref={ref} className="universe" aria-label="El universo de Brawl Stars">
     <div className="universe__sticky">
-      <motion.div className="universe__head" style={{ opacity: headOpacity, y: headY }}><p className="section-kicker">Entra en la arena</p><h2>El universo de Brawl Stars</h2><p>Brawlers, gadgets y modos de juego: todo lo que hace especial al juego que protagoniza mi contenido.</p></motion.div>
-      <motion.div className="universe__head" style={{ opacity: head2Opacity }}><p className="section-kicker">Modos de juego</p><h2>Cada partida, una historia</h2></motion.div>
+      <motion.div className="universe__head" style={{ opacity: headOpacity, y: headY }}><p className="section-kicker">Entra en la arena</p><ScrollTitle text="El universo de Brawl Stars" /><p>Brawlers, gadgets y modos de juego: todo lo que hace especial al juego que protagoniza mi contenido.</p></motion.div>
+      <motion.div className="universe__head" style={{ opacity: head2Opacity }}><p className="section-kicker">Modos de juego</p><ScrollTitle text="Cada partida, una historia" /></motion.div>
       <motion.div className="universe__core" style={{ scale, opacity: coreOpacity }}>
         <div className="universe__glow" /><motion.div className="universe__ring" style={{ rotate: ringRotate }} />
         {UNIVERSE_ORBS.map((o, i) => <UniverseOrb key={i} orb={o} i={i} p={p} />)}
@@ -163,7 +183,7 @@ function HorizontalGallery() {
   const title = "Mis brawlers favoritos".split(" ");
   return <section ref={ref} className="gallery" aria-label="Galería de brawlers favoritos">
     <div className="gallery__sticky">
-      <div className="gallery__header"><p className="section-kicker">Mi equipo / 03</p><h2>{title.map((word, i) => <GalleryWord key={i} word={word} index={i} progress={scrollYProgress} />)}</h2></div>
+      <div className="gallery__header"><p className="section-kicker">Mi equipo / 03</p><h2 aria-label="Mis brawlers favoritos">{title.map((word, i) => <GalleryWord key={i} word={word} index={i} progress={scrollYProgress} />)}</h2></div>
       <motion.div className="gallery__track" style={{ x }}>
         {FAVORITES.map((brawler, i) => <GalleryPanel key={brawler.name} brawler={brawler} index={i} progress={scrollYProgress} />)}
       </motion.div>
@@ -259,7 +279,7 @@ function Index() {
   return <main className="site-shell">
     <ScrollProgress />
     <SectionDots />
-    <div className="arena-bg" aria-hidden="true"><div className="arena-bg__stars" /><div className="arena-bg__floor" /><span className="arena-bg__shape">★</span><span className="arena-bg__shape">✦</span><span className="arena-bg__shape">◆</span></div>
+    <div className="arena-bg" aria-hidden="true"><div className="arena-bg__stars" /><div className="arena-bg__floor" /><span className="arena-bg__shape">★</span><span className="arena-bg__shape">✦</span><span className="arena-bg__shape">◆</span><GamingParticles /></div>
     <div className="page-loader" aria-hidden="true"><div className="loader-mark"><Gamepad2 /></div></div>
     <motion.section ref={heroRef} className="profile-hero" style={{ clipPath: heroClip }}>
       <motion.div className="profile-hero__texture" style={{ backgroundImage: `url(${bgTexture})`, y: texY, scale: texScale }} />
@@ -316,8 +336,9 @@ function Index() {
     <section id="brawl-stars" className="brawl-section">
       <Decor />
       <div className="section-inner">
-        <div className="brawl-intro"><div><p className="section-kicker">Zona de combate</p><h2>Mi contenido de <span>Brawl Stars</span></h2><p>Partidas, consejos, retos, novedades y jugadas con mis brawlers favoritos.</p></div><div className="content-tags"><span>Gameplays</span><span>Consejos</span><span>Retos</span><span>Novedades</span></div></div>
-        <div className="stats-row">{CREATOR_STATS.map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
+        <div className="brawl-intro"><div><p className="section-kicker">Zona de combate</p><ScrollTitle text="Mi contenido de Brawl Stars" highlightFrom={15} /><p>Partidas, consejos, retos, novedades y jugadas con mis brawlers favoritos.</p></div><div className="content-tags"><span>Gameplays</span><span>Consejos</span><span>Retos</span><span>Novedades</span></div></div>
+        <div className="stats-row">{CREATOR_STATS.map(stat => <AnimatedStat key={stat.label} value={stat.value} label={stat.label} />)}</div>
+        <StreamerStory />
         <div className="featured-callout"><span className="featured-callout__icon"><Play /></span><div><p className="section-kicker">Vídeos destacados</p><h3>Las mejores partidas estarán aquí</h3><p>Añade tus enlaces reales para convertir esta zona en tu escaparate de contenido.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Ver canal <ArrowUpRight /></a></div>
       </div>
     </section>
