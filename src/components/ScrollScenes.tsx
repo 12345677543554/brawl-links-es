@@ -38,7 +38,7 @@ export function ScrollScenes() {
   const { scrollYProgress: tp } = useScroll({ target: textRef, offset: ["start start", "end end"] });
   const { scrollYProgress: ip } = useScroll({ target: imgRef, offset: ["start end", "end start"] });
   const { scrollYProgress: sp } = useScroll({ target: stickyRef, offset: ["start start", "end end"] });
-  const bg = useTransform(tp, [0, 1], ["color-mix(in oklab, var(--background) 92%, var(--chart-3))", "color-mix(in oklab, var(--background) 80%, var(--primary))"]);
+  const bg = useTransform(tp, [0, 1], ["color-mix(in oklab, var(--background) 92%, var(--chart-3))", "color-mix(in oklab, var(--background) 82%, var(--accent))"]);
   const y1 = useTransform(ip, [0, 1], [180, -180]);
   const y2 = useTransform(ip, [0, 1], [-60, 60]);
   const y3 = useTransform(ip, [0, 1], [260, -260]);
