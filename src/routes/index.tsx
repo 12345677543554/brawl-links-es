@@ -24,6 +24,7 @@ import fame6 from "@/assets/brawl/fame-6.png.asset.json";
 import { ScrollTitle } from "@/components/ScrollTitle";
 import { StreamerStory } from "@/components/StreamerStory";
 import { GamingParticles } from "@/components/GamingParticles";
+import { ScrollScenes } from "@/components/ScrollScenes";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -309,6 +310,8 @@ function Index() {
     </motion.section>
 
     <BrawlUniverse />
+
+    <ScrollScenes />
 
     <section className="content-band platforms-section">
       <div className="section-inner">

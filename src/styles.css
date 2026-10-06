@@ -780,3 +780,24 @@
 @media (min-width:768px){.streamer-story__chapters{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:767px){.scroll-title__letter{clip-path:none !important}.streamer-story__controller{display:none}.streamer-story__background{transform:none !important}.streamer-story__rail{right:.25rem}.streamer-story__chapters{margin-top:2rem}}
 @media (prefers-reduced-motion:reduce){.scroll-title__letter{clip-path:none !important}.scroll-title__line{transform:none !important}.streamer-story__background,.streamer-story__controller{transform:none !important}.streamer-story__rail span{transform:none !important}.arena-bg__particles{display:none}.scroll-progress{transform:none !important;display:none}}
+.scenes-text{height:320vh;position:relative}
+.scenes-sticky{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden;perspective:900px}
+.scenes-words{position:relative;width:100%;height:40vh}
+.scenes-word{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(3.5rem,14vw,11rem);font-weight:950;letter-spacing:-.03em;color:var(--foreground);text-shadow:0 0 40px color-mix(in oklab,var(--chart-3) 60%,transparent)}
+.scenes-word:last-child{color:var(--primary)}
+.scenes-parallax{height:130vh;display:grid;place-items:center;padding:0 1.25rem}
+.scenes-frame{position:relative;width:min(68rem,100%);height:80vh;border-radius:2rem;overflow:hidden;background:radial-gradient(circle at 50% 60%,color-mix(in oklab,var(--accent) 35%,transparent),transparent 60%),color-mix(in oklab,var(--card) 80%,var(--chart-3))}
+.scenes-img{position:absolute;bottom:8%;object-fit:contain;filter:drop-shadow(0 20px 30px rgb(0 0 0/.5))}
+.scenes-img--a{left:4%;width:28%}.scenes-img--b{left:32%;width:36%;z-index:2}.scenes-img--c{right:4%;width:28%}
+.scenes-steps-wrap{height:300vh;position:relative}
+.scenes-steps-wrap .scenes-sticky{align-content:center;gap:2rem;padding:0 1.25rem}
+.scenes-ring{position:absolute;width:min(80vw,40rem);opacity:.35;z-index:-1}
+.scenes-ring circle{fill:none;stroke:var(--chart-3);stroke-width:1;filter:drop-shadow(0 0 6px var(--chart-3))}
+.scenes-steps-title{font-size:clamp(2rem,6vw,4.5rem);font-weight:950;text-align:center}
+.scenes-steps{display:grid;gap:1rem;width:min(68rem,100%);grid-template-columns:repeat(auto-fit,minmax(13rem,1fr))}
+.scenes-step{padding:1.25rem;border:1px solid color-mix(in oklab,var(--chart-3) 45%,var(--border));border-radius:.75rem;background:color-mix(in oklab,var(--card) 88%,transparent)}
+.scenes-step b{color:var(--primary);font-size:.8rem}.scenes-step h3{margin-top:.4rem;font-size:1.2rem;font-weight:900}.scenes-step p{margin-top:.3rem;color:var(--muted-foreground);font-size:.85rem}
+.scenes-bar{width:min(68rem,100%);height:3px;background:color-mix(in oklab,var(--chart-3) 20%,transparent)}
+.scenes-bar span{display:block;height:100%;transform-origin:left;background:var(--chart-3);box-shadow:0 0 10px var(--chart-3)}
+.scenes-static{padding:4rem 1.25rem;display:grid;gap:2rem;justify-items:center;text-align:center}.scenes-static h2{font-size:clamp(2rem,6vw,4rem);font-weight:950}
+@media (max-width:767px){.scenes-text{height:240vh}.scenes-steps-wrap{height:240vh}.scenes-steps{grid-template-columns:1fr 1fr}.scenes-step{padding:.8rem}.scenes-step p{display:none}.scenes-parallax{height:90vh}.scenes-frame{height:60vh}}
