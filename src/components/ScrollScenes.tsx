@@ -47,6 +47,7 @@ export function ScrollScenes() {
   const clip = useTransform(ip, [0, .4], ["inset(40% 40% 40% 40% round 2rem)", "inset(0% 0% 0% 0% round 2rem)"]);
   const line = useTransform(sp, [0, 1], [0, 1]);
   const ring = useTransform(sp, [0, 1], [0, 360]);
+  const rotNeg = useTransform(rot, (r) => -r);
 
   if (reduced) return <section className="scenes-static" aria-label="Juega, graba, comparte">
     <h2>JUEGA · GRABA · COMPARTE · GAMETUIN</h2>
@@ -62,7 +63,7 @@ export function ScrollScenes() {
       <motion.div className="scenes-frame" style={{ clipPath: clip }}>
         <motion.img src={nori.url} alt="Nori" loading="lazy" className="scenes-img scenes-img--a" style={{ y: y1, rotate: rot }} />
         <motion.img src={leon.url} alt="León" loading="lazy" className="scenes-img scenes-img--b" style={{ y: y2, scale: zoom }} />
-        <motion.img src={cordelius.url} alt="Cordelius" loading="lazy" className="scenes-img scenes-img--c" style={{ y: y3, rotate: useTransform(rot, (r) => -r) }} />
+        <motion.img src={cordelius.url} alt="Cordelius" loading="lazy" className="scenes-img scenes-img--c" style={{ y: y3, rotate: rotNeg }} />
       </motion.div>
     </section>
 
