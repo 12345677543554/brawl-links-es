@@ -14,6 +14,6 @@ export function ScrollTitle({ text, highlightFrom }: { text: string; highlightFr
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
   return <h2 ref={ref} className="scroll-title" aria-label={text}>
     {reduced ? text : [...text].map((character, index) => <Letter key={index} character={character} index={index} count={text.length} progress={scrollYProgress} highlighted={highlightFrom !== undefined && index >= highlightFrom} />)}
-    <motion.span aria-hidden="true" className="scroll-title__line" style={reduced ? undefined : { scaleX: lineScale }} />
+    <motion.span aria-hidden="true" className="scroll-title__line" style={reduced ? {} : { scaleX: lineScale }} />
   </h2>;
 }

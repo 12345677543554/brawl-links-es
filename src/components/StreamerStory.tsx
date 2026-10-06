@@ -20,9 +20,9 @@ export function StreamerStory() {
   const controllerX = useTransform(scrollYProgress, [0, 1], ["-15%", "75%"]);
   const controllerY = useTransform(scrollYProgress, [0, 1], ["-10%", "90%"]);
   return <section ref={ref} className="streamer-story" aria-label="Mi historia como streamer">
-    <motion.div className="streamer-story__background" style={reduced ? undefined : { y: backgroundY }} aria-hidden="true" />
-    <motion.div className="streamer-story__controller" style={reduced ? undefined : { x: controllerX, y: controllerY }} aria-hidden="true"><Gamepad2 strokeWidth={1.5} /></motion.div>
-    <div className="streamer-story__rail" aria-hidden="true"><motion.span style={reduced ? undefined : { scaleY: scrollYProgress }} /></div>
+    <motion.div className="streamer-story__background" style={reduced ? {} : { y: backgroundY }} aria-hidden="true" />
+    <motion.div className="streamer-story__controller" style={reduced ? {} : { x: controllerX, y: controllerY }} aria-hidden="true"><Gamepad2 strokeWidth={1.5} /></motion.div>
+    <div className="streamer-story__rail" aria-hidden="true"><motion.span style={reduced ? {} : { scaleY: scrollYProgress }} /></div>
     <div className="section-inner streamer-story__inner">
       <p className="section-kicker">GAMETUIN / Mi recorrido</p>
       <ScrollTitle text="Mi historia como streamer" />
