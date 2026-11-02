@@ -822,3 +822,11 @@
   }
 }
 @keyframes sd-band { from { opacity: .3; transform: translateY(60px) scale(.97); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 767px) {
+  .video-card, .video-card:nth-child(2), .video-card:nth-child(3) { animation-name: sdx-card-mobile !important; animation-range: entry 0% cover 25% !important; }
+}
+@keyframes sdx-card-mobile { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@media (max-width: 767px) {
+  .content-band, .brawl-section { animation: none !important; }
+}
