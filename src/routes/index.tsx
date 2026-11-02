@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { animate, motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy, Youtube } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, ChevronRight, Gamepad2, Play, Sparkles, Trophy } from "lucide-react";
 import gametuinAvatar from "@/assets/gametuin-avatar.png";
 import bgTexture from "@/assets/bg-texture.png";
 import nori from "@/assets/brawl/nori-official.png.asset.json";
@@ -73,7 +73,28 @@ export const Route = createFileRoute("/")({
 
 
 function TikTokIcon({ className = "" }: { className?: string }) {
-  return <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-3.9-4.3H9.6v12.4a2.9 2.9 0 1 1-2.1-2.8V7.9a6 6 0 1 0 5.2 6V9.3a7.8 7.8 0 0 0 4.5 1.4V7.6a4.8 4.8 0 0 1-.6-1.8z" /></svg>;
+  return <svg viewBox="0 0 24 24" className={`brand-icon ${className}`} fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.04.86.13V9.4a6.34 6.34 0 0 0-.86-.06A6.34 6.34 0 0 0 3.15 15.7a6.34 6.34 0 0 0 10.86 4.43 6.3 6.3 0 0 0 1.81-4.43V8.73a8.2 8.2 0 0 0 4.77 1.52V6.8a4.85 4.85 0 0 1-1-.11z" /></svg>;
+}
+
+function YoutubeIcon({ className = "" }: { className?: string }) {
+  return <svg viewBox="0 0 24 24" className={`brand-icon ${className}`} fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z" /></svg>;
+}
+
+const TIPS = [
+  { t: "Conoce el mapa", c: "Aprende dónde están los arbustos, muros y caminos antes de atacar." },
+  { t: "Juega en equipo", c: "Coordínate con tus compañeros y no te lances solo al ataque." },
+  { t: "Guarda el súper", c: "Úsalo en el momento clave: puede decidir la partida." },
+  { t: "Elige bien", c: "Escoge un brawler que encaje con el modo y el mapa." },
+];
+
+function TipsSection() {
+  const reduced = useReducedMotion();
+  return <section id="consejos" className="content-band tips-section" aria-label="Consejos de GAMETUIN">
+    <div className="section-inner">
+      <div className="section-heading"><p className="section-kicker">Sube de nivel</p><ScrollTitle text="Consejos de GAMETUIN" highlightFrom={11} /></div>
+      <div className="tips-grid">{TIPS.map((tip, i) => <motion.article key={tip.t} className="tip-card" initial={reduced ? false : { opacity: 0, y: 40, rotateX: 25 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .6, delay: i * .15, ease: "easeOut" }}><b>0{i + 1}</b><h3>{tip.t}</h3><p>{tip.c}</p></motion.article>)}</div>
+    </div>
+  </section>;
 }
 
 function Decor() {
@@ -288,7 +309,7 @@ function Index() {
       <nav className="top-nav" aria-label="Navegación principal">
         <a href="#inicio" className="nav-brand"><span className="nav-brand__mark">G</span><b>GAMETUIN</b></a>
         <div className="top-nav__links"><a href="#contenido">Vídeos</a><a href="#brawl-stars">Brawl Stars</a></div>
-        <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="mini-cta"><Youtube className="h-4 w-4" /> YouTube</a>
+        <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="mini-cta"><YoutubeIcon className="h-4 w-4" /> YouTube</a>
       </nav>
 
       <div id="inicio" className="profile-hero__content">
@@ -301,7 +322,7 @@ function Index() {
           <p className="profile-role"><Gamepad2 /> Creador de contenido de Brawl Stars</p>
           <p className="profile-intro">¡Bienvenido a mi zona! Aquí encontrarás todas mis redes, vídeos y contenido de Brawl Stars.</p>
           <div className="profile-actions">
-            <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="action-primary"><Youtube /> Ver YouTube</a>
+            <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="action-primary"><YoutubeIcon /> Ver YouTube</a>
             <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="action-secondary"><TikTokIcon /> @izan29096</a>
           </div>
         </motion.div></motion.div>
@@ -317,7 +338,7 @@ function Index() {
       <div className="section-inner">
         <SectionHeading eyebrow="Sígueme" title="Todas mis redes" copy="No te pierdas ningún vídeo, clip o novedad." />
         <div className="platform-grid">
-          <article className="platform-card platform-card--youtube"><span className="platform-icon"><Youtube /></span><div><h3>YouTube</h3><p>Vídeos, partidas y contenido largo de Brawl Stars.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Visitar <ArrowUpRight /></a></article>
+          <article className="platform-card platform-card--youtube"><span className="platform-icon"><YoutubeIcon /></span><div><h3>YouTube</h3><p>Vídeos, partidas y contenido largo de Brawl Stars.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Visitar <ArrowUpRight /></a></article>
           <article className="platform-card platform-card--tiktok"><span className="platform-icon"><TikTokIcon /></span><div><h3>TikTok</h3><p>Clips rápidos, jugadas y momentos de la comunidad.</p></div><a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer">Visitar <ArrowUpRight /></a></article>
         </div>
       </div>
@@ -346,8 +367,10 @@ function Index() {
       </div>
     </section>
 
+    <TipsSection />
+
     <FamaSection />
 
-    <footer className="site-footer"><div className="site-footer__inner"><div className="footer-brand"><span>G</span><div><b>GAMETUIN</b><small>Creador de Brawl Stars</small></div></div><div className="footer-socials"><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube /></a><a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TikTokIcon /></a></div><div className="footer-legal"><span>© 2026 GAMETUIN</span><Link to="/politica-de-privacidad">Política de privacidad</Link><Link to="/aviso-legal">Aviso legal</Link></div></div></footer>
+    <footer className="site-footer"><div className="site-footer__inner"><div className="footer-brand"><span>G</span><div><b>GAMETUIN</b><small>Creador de Brawl Stars</small></div></div><div className="footer-socials"><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YoutubeIcon /></a><a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TikTokIcon /></a></div><div className="footer-legal"><span>© 2026 GAMETUIN</span><Link to="/politica-de-privacidad">Política de privacidad</Link><Link to="/aviso-legal">Aviso legal</Link></div></div></footer>
   </main>;
 }
