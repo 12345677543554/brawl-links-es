@@ -514,7 +514,7 @@
     /* Plataformas: entran desde lados opuestos */
     .platform-card--youtube{animation:sd-left linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
     .platform-card--tiktok{animation:sd-right linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
-    .platform-icon{animation:sd-spin linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
+    .platform-icon{animation:sd-icon-pop linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
 
     /* Fama: tarjetas info escalonadas */
     .fama-info{animation:sd-up linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
@@ -801,3 +801,24 @@
 .scenes-bar span{display:block;height:100%;transform-origin:left;background:var(--chart-3);box-shadow:0 0 10px var(--chart-3)}
 .scenes-static{padding:4rem 1.25rem;display:grid;gap:2rem;justify-items:center;text-align:center}.scenes-static h2{font-size:clamp(2rem,6vw,4rem);font-weight:950}
 @media (max-width:767px){.scenes-text{height:240vh}.scenes-steps-wrap{height:240vh}.scenes-steps{grid-template-columns:1fr 1fr}.scenes-step{padding:.8rem}.scenes-step p{display:none}.scenes-parallax{height:90vh}.scenes-frame{height:60vh}}
+
+.brand-icon { width: 1.25em; height: 1.25em; flex-shrink: 0; display: inline-block; vertical-align: middle; }
+.platform-icon .brand-icon { width: 1.6rem; height: 1.6rem; }
+.footer-socials .brand-icon { width: 1.1rem; height: 1.1rem; }
+.platform-card--tiktok .platform-icon { filter: drop-shadow(-1.5px -1px 0 var(--tiktok-cyan, #25f4ee)) drop-shadow(1.5px 1px 0 var(--tiktok-pink, #fe2c55)); }
+@keyframes sd-icon-pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.tips-section .tips-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin-top: 2rem; perspective: 900px; }
+.tip-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--card); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.tip-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: 0 0 24px color-mix(in oklab, var(--primary) 35%, transparent); }
+.tip-card b { color: var(--primary); font-size: 1.6rem; font-weight: 900; }
+.tip-card h3 { margin: .4rem 0; font-size: 1.15rem; font-weight: 800; }
+.tip-card p { color: var(--muted-foreground); font-size: .95rem; }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .content-band > .section-inner, .brawl-section > .section-inner, .site-footer__inner { animation: sd-band linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+    .footer-socials a { animation: sd-icon-pop linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+  }
+}
+@keyframes sd-band { from { opacity: .3; transform: translateY(60px) scale(.97); } to { opacity: 1; transform: none; } }
