@@ -91,8 +91,7 @@ function TipsSection() {
   const reduced = useReducedMotion();
   return <section id="consejos" className="content-band tips-section" aria-label="Consejos de GAMETUIN">
     <div className="section-inner">
-      <p className="section-kicker">Sube de nivel</p>
-      <ScrollTitle text="Consejos de GAMETUIN" highlightFrom={11} />
+      <div className="section-heading"><p className="section-kicker">Sube de nivel</p><ScrollTitle text="Consejos de GAMETUIN" highlightFrom={11} /></div>
       <div className="tips-grid">{TIPS.map((tip, i) => <motion.article key={tip.t} className="tip-card" initial={reduced ? false : { opacity: 0, y: 40, rotateX: 25 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .6, delay: i * .15, ease: "easeOut" }}><b>0{i + 1}</b><h3>{tip.t}</h3><p>{tip.c}</p></motion.article>)}</div>
     </div>
   </section>;
