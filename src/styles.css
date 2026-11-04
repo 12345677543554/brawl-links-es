@@ -830,3 +830,32 @@
 @media (max-width: 767px) {
   .content-band, .brawl-section { animation: none !important; }
 }
+
+/* Extra scroll-driven layer */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .top-nav { animation: sdz-nav linear both; animation-timeline: scroll(root); animation-range: 0 40vh; }
+    .section-kicker { animation: sdz-kicker linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+    .tip-card { animation: sdz-flip linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+    .tip-card:nth-child(even) { animation-range: entry 10% cover 40%; }
+    .tip-card b { display: inline-block; animation: sdz-spin-in linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+    .streamer-story__chapter .streamer-story__symbol { animation: sdz-spin-in linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+    .gallery-word { animation: sdz-track linear both; animation-timeline: view(); }
+    .footer-brand { animation: sdz-kicker linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    .footer-legal a { animation: sdz-fade linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    .verified { animation: sdz-spin-in linear both; animation-timeline: scroll(root); animation-range: 0 60vh; animation-direction: reverse; }
+    .fama-coin { animation: sdz-glow linear both; animation-timeline: view(); }
+    .scenes-step b, .stats-row > div strong { animation: sdz-glow linear both; animation-timeline: view(); }
+  }
+}
+@keyframes sdz-nav { to { background: color-mix(in oklab, var(--background) 85%, transparent); box-shadow: 0 8px 30px color-mix(in oklab, var(--chart-3) 25%, transparent); backdrop-filter: blur(10px); } }
+@keyframes sdz-kicker { from { opacity: 0; letter-spacing: .6em; } to { opacity: 1; letter-spacing: normal; } }
+@keyframes sdz-flip { from { opacity: 0; transform: perspective(900px) rotateY(-55deg) translateZ(-80px); } to { opacity: 1; transform: none; } }
+@keyframes sdz-spin-in { from { transform: rotate(-180deg) scale(.3); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sdz-track { from { transform: translateX(15%); } to { transform: translateX(-15%); } }
+@keyframes sdz-fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes sdz-glow { 0%,100% { filter: none; } 50% { filter: drop-shadow(0 0 12px var(--primary)) brightness(1.2); } }
+@media (max-width: 767px) {
+  .tip-card { animation-name: sdz-fade !important; }
+  .gallery-word { animation: none !important; }
+}
