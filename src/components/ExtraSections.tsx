@@ -40,8 +40,8 @@ function GadgetRail() {
 const COUNT = ["3", "2", "1", "¡BRAWL!"];
 function CountWord({ t, i, p }: { t: string; i: number; p: MotionValue<number> }) {
   const s = i / COUNT.length, e = (i + 1) / COUNT.length, last = i === COUNT.length - 1;
-  const opacity = useTransform(p, [s, s + .02, e - .02, e], [0, 1, 1, last ? 1 : 0]);
-  const scale = useTransform(p, [s, e], [3, last ? 1 : .4]);
+  const opacity = useTransform(p, [s, s + .02, e - .02, e], [i === 0 ? 1 : 0, 1, 1, last ? 1 : 0]);
+  const scale = useTransform(p, [s, e], [i === 0 ? 1.4 : 3, last ? 1 : .4]);
   const rotate = useTransform(p, [s, e], [last ? -10 : 20, 0]);
   return <motion.span className={`xs-count-word${last ? " xs-count-word--go" : ""}`} style={{ opacity, scale, rotate }}>{t}</motion.span>;
 }
