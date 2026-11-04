@@ -859,3 +859,34 @@
   .tip-card { animation-name: sdz-fade !important; }
   .gallery-word { animation: none !important; }
 }
+
+/* Extra sections */
+.xs-title{font-size:clamp(2rem,6vw,4.5rem);font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:-.02em}
+.xs-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:1.2rem;overflow:hidden;padding:0 1.5rem}
+.xs-sticky--center{align-items:center}
+.xs-gadgets{height:320vh;position:relative}
+.xs-gadgets .xs-sticky{padding-left:max(1.5rem,6vw)}
+.xs-track{display:flex;gap:1.5rem;width:max-content}
+.xs-gadget{width:clamp(11rem,22vw,16rem);aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;border:1px solid color-mix(in oklab,var(--primary) 40%,var(--border));border-radius:1.5rem;background:radial-gradient(circle at 50% 35%,color-mix(in oklab,var(--primary) 25%,var(--card)),var(--card));box-shadow:0 0 30px color-mix(in oklab,var(--primary) 20%,transparent)}
+.xs-gadget img{width:55%;filter:drop-shadow(0 8px 18px color-mix(in oklab,var(--primary) 50%,transparent))}
+.xs-gadget b{font-size:1.2rem;font-weight:900}.xs-gadget small{color:var(--muted-foreground)}
+.xs-gadgets--static{height:auto;padding:5rem 0}.xs-gadgets--static .xs-sticky{position:static;height:auto}.xs-gadgets--static .xs-track{flex-wrap:wrap;width:auto}
+.xs-count{height:300vh;position:relative}
+.xs-count .xs-sticky{display:grid;place-items:center}
+.xs-count-word{grid-area:1/1;font-size:clamp(6rem,25vw,16rem);font-weight:900;color:var(--foreground);text-shadow:0 0 40px color-mix(in oklab,var(--chart-3) 60%,transparent)}
+.xs-count-word--go{color:var(--primary);font-size:clamp(4rem,16vw,11rem);text-shadow:0 0 50px var(--primary)}
+.xs-count-ring{grid-area:1/1;width:min(80vw,34rem);fill:none;stroke:var(--chart-3);stroke-width:1.5;opacity:.6;transform:rotate(-90deg)}
+.xs-count-static{padding:5rem 1rem;text-align:center;font-size:2.5rem;font-weight:900}
+.xs-squad{position:relative;padding:8rem 1.5rem 6rem;overflow:hidden;text-align:center}
+.xs-squad-word{position:absolute;top:2rem;left:0;white-space:nowrap;font-size:clamp(4rem,14vw,10rem);font-weight:900;color:transparent;-webkit-text-stroke:1px color-mix(in oklab,var(--chart-3) 50%,transparent);pointer-events:none}
+.xs-squad-row{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:1rem;margin-bottom:2rem}
+.xs-squad-row img{width:clamp(7rem,22vw,16rem);filter:drop-shadow(0 20px 30px color-mix(in oklab,var(--background) 70%,transparent))}
+.xs-squad-row .xs-squad-mid{width:clamp(9rem,28vw,20rem);z-index:1}
+.xs-community{padding:6rem 1.5rem}
+.xs-community-card{max-width:60rem;margin:auto;padding:clamp(3rem,8vw,6rem) 1.5rem;text-align:center;border-radius:2rem;border:1px solid color-mix(in oklab,var(--primary) 50%,transparent);background:radial-gradient(circle at 50% 0%,color-mix(in oklab,var(--primary) 30%,var(--card)),var(--card));box-shadow:0 0 60px color-mix(in oklab,var(--primary) 25%,transparent)}
+.xs-community-card p:not(.section-kicker){color:var(--muted-foreground);margin:1rem 0 2rem}
+.xs-community-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.xs-community-actions a{padding:.9rem 1.8rem;border-radius:999px;font-weight:900;background:var(--primary);color:var(--primary-foreground);transition:transform .2s}
+.xs-community-actions a:last-child{background:var(--card);color:var(--foreground);border:1px solid var(--tiktok-cyan,var(--border))}
+.xs-community-actions a:hover{transform:translateY(-3px) scale(1.04)}
+@media (max-width:767px){.xs-gadgets{height:260vh}.xs-count{height:220vh}.xs-squad{padding-top:6rem}}

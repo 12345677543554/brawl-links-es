@@ -25,6 +25,7 @@ import { ScrollTitle } from "@/components/ScrollTitle";
 import { StreamerStory } from "@/components/StreamerStory";
 import { GamingParticles } from "@/components/GamingParticles";
 import { ScrollScenes } from "@/components/ScrollScenes";
+import { ExtraSections } from "@/components/ExtraSections";
 
 // Edita estas listas para actualizar enlaces, vídeos y datos del creador.
 const SOCIAL_LINKS = {
@@ -366,6 +367,8 @@ function Index() {
         <div className="featured-callout"><span className="featured-callout__icon"><Play /></span><div><p className="section-kicker">Vídeos destacados</p><h3>Las mejores partidas estarán aquí</h3><p>Añade tus enlaces reales para convertir esta zona en tu escaparate de contenido.</p></div><a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">Ver canal <ArrowUpRight /></a></div>
       </div>
     </section>
+
+    <ExtraSections youtube={SOCIAL_LINKS.youtube} tiktok={SOCIAL_LINKS.tiktok} />
 
     <TipsSection />
 
