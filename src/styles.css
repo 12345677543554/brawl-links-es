@@ -874,7 +874,7 @@
 .xs-count{height:300vh;position:relative}
 .xs-count .xs-sticky{display:grid;place-items:center}
 .xs-count-word{grid-area:1/1;font-size:clamp(6rem,25vw,16rem);font-weight:900;color:var(--foreground);text-shadow:0 0 20px color-mix(in oklab,var(--chart-3) 50%,transparent)}
-.xs-count-word--go{color:var(--primary);font-size:clamp(3rem,13vw,10rem);text-shadow:0 0 30px color-mix(in oklab,var(--primary) 60%,transparent)}
+.xs-count-word--go{color:var(--primary);font-size:clamp(2.5rem,10vw,9rem);text-shadow:0 0 30px color-mix(in oklab,var(--primary) 60%,transparent)}
 .xs-count-ring{grid-area:1/1;width:min(80vw,34rem);fill:none;stroke:var(--chart-3);stroke-width:1.5;opacity:.6;transform:rotate(-90deg)}
 .xs-count-static{padding:5rem 1rem;text-align:center;font-size:2.5rem;font-weight:900}
 .xs-squad{position:relative;padding:8rem 1.5rem 6rem;overflow:hidden;text-align:center}
