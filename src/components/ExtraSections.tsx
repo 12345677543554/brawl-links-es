@@ -40,7 +40,7 @@ function GadgetRail() {
 const COUNT = ["3", "2", "1", "¡BRAWL!"];
 function CountWord({ t, i, p }: { t: string; i: number; p: MotionValue<number> }) {
   const s = i / COUNT.length, e = (i + 1) / COUNT.length, last = i === COUNT.length - 1;
-  const opacity = useTransform(p, [s, s + .05, e - .05, e], [0, 1, 1, last ? 1 : 0]);
+  const opacity = useTransform(p, [s, s + .02, e - .02, e], [0, 1, 1, last ? 1 : 0]);
   const scale = useTransform(p, [s, e], [3, last ? 1 : .4]);
   const rotate = useTransform(p, [s, e], [last ? -10 : 20, 0]);
   return <motion.span className={`xs-count-word${last ? " xs-count-word--go" : ""}`} style={{ opacity, scale, rotate }}>{t}</motion.span>;
@@ -51,9 +51,8 @@ function Countdown() {
   const reduced = useReducedMotion();
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const ring = useTransform(p, [0, 1], [0, 1]);
-  const glow = useTransform(p, [0, 1], ["color-mix(in oklab, var(--background) 95%, var(--chart-3))", "color-mix(in oklab, var(--background) 75%, var(--primary))"]);
   if (reduced) return <section className="xs-count-static" aria-label="Cuenta atrás"><h2>3 · 2 · 1 · ¡BRAWL!</h2></section>;
-  return <motion.section ref={ref} className="xs-count" style={{ background: glow }} aria-label="Cuenta atrás">
+  return <motion.section ref={ref} className="xs-count" aria-label="Cuenta atrás">
     <div className="xs-sticky xs-sticky--center">
       <svg className="xs-count-ring" viewBox="0 0 100 100" aria-hidden="true"><motion.circle cx="50" cy="50" r="45" style={{ pathLength: ring }} /></svg>
       {COUNT.map((t, i) => <CountWord key={t} t={t} i={i} p={p} />)}
